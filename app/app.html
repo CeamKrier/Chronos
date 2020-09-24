@@ -37,10 +37,12 @@
           scripts.push('./dist/renderer.prod.js');
         }
 
+        scripts.push('customRenderer.ts');
+
         if (scripts.length) {
           document.write(
             scripts
-              .map(script => `<script defer src="${script}"><\/script>`)
+              .map((script) => `<script defer src="${script}"><\/script>`)
               .join('')
           );
         }
