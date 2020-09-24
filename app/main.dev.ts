@@ -15,8 +15,9 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
-// @ts-ignore
-import activeWindows from 'electron-active-window';
+import { Process } from './utils/typeKeeper';
+
+const activeWindows = require('electron-active-window');
 
 export default class AppUpdater {
   constructor() {
@@ -27,7 +28,7 @@ export default class AppUpdater {
 }
 
 let mainWindow: BrowserWindow | null = null;
-const store: {observerID: NodeJS.Timeout | null} = {observerID: null}
+const store: { observerID: NodeJS.Timeout | null } = { observerID: null };
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -51,6 +52,14 @@ const installExtensions = async () => {
   ).catch(console.log);
 };
 
+// const acquireCurrentActiveWindowInfo = () => {
+//   try {
+//     return activeWindows().getActiveWindow();
+//   } catch (error) {
+//     return Promise.reject('Failed to retrieve current active window data');
+//   }
+// };
+
 const createWindow = async () => {
   if (
     process.env.NODE_ENV === 'development' ||
@@ -63,8 +72,9 @@ const createWindow = async () => {
     show: false,
     width: 1024,
     height: 728,
-    webPreferences:
-      (process.env.NODE_ENV === 'development' ||
+    webPreferences: {
+      // devTools: false,
+      ...((process.env.NODE_ENV === 'development' ||
         process.env.E2E_BUILD === 'true') &&
       process.env.ERB_SECURE !== 'true'
         ? {
@@ -72,7 +82,8 @@ const createWindow = async () => {
           }
         : {
             preload: path.join(__dirname, 'dist/renderer.prod.js'),
-          },
+          }),
+    },
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
@@ -93,26 +104,25 @@ const createWindow = async () => {
 
   ipcMain.on('startObserving', () => {
     if (store.observerID) {
-      console.log('Observer already initiated')
-      return 
+      console.log('Observer already initiated');
+      return;
     }
     const intervalID = setInterval(() => {
       activeWindows()
         .getActiveWindow()
-        //@ts-ignore
-        .then((result) => {
-          mainWindow?.webContents.send('activeProcess', result);
+        .then((result: Process) =>
+          mainWindow?.webContents.send('activeProcess', result)
+        )
+        .catch(() => {
+          console.log('Could not retrieve current window data');
         });
     }, 1000);
-    console.log('observerID', intervalID)
-    store.observerID = intervalID
-    console.log('Observer initiated with observer id ', intervalID)
+    store.observerID = intervalID;
   });
 
   ipcMain.on('stopObserving', () => {
-    console.log('Removing observer with interval id ', store.observerID)
-    clearInterval(store.observerID as NodeJS.Timeout)
-    store.observerID = null
+    clearInterval(store.observerID as NodeJS.Timeout);
+    store.observerID = null;
   });
 
   mainWindow.on('closed', () => {
