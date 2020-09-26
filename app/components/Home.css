@@ -1,8 +1,8 @@
 .container {
-  position: absolute;
-  top: 30%;
+  /* position: absolute;
+   top: 30%;
   left: 10px;
-  text-align: center;
+  text-align: center; */
 }
 
 .container h2 {
@@ -11,4 +11,8 @@
 
 .container a {
   font-size: 1.4rem;
+}
+
+.container-after-titlebar {
+  overflow: hidden;
 }

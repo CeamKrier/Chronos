@@ -5,33 +5,46 @@ import { Process } from '../../utils/typeKeeper';
 
 const observerSlice = createSlice({
   name: 'observer',
-  initialState: new Array<Process>(),
+  initialState: {
+    screenTime: 0,
+    processes: new Array<Process>(),
+  },
   reducers: {
     addNewProcess: (state, action: PayloadAction<Process>) => {
-      state.push(action.payload);
+      state.processes.push(action.payload);
     },
-    incrementUsageTimeByOneSecond: (state, action: PayloadAction<number>) => {
-      state[action.payload].usageTime =
-        +(state[action.payload].usageTime || 0) + 1;
+    incrementProcessUsageTimeByOneSecond: (
+      state,
+      action: PayloadAction<number>
+    ) => {
+      state.processes[action.payload].usageTime =
+        +(state.processes[action.payload].usageTime || 0) + 1;
     },
-    incrementIdleTimeByOneSecond: (state, action: PayloadAction<number>) => {
-      state[action.payload].idleTime =
-        +(state[action.payload].idleTime || 0) + 1;
+    incrementProcessIdleTimeByOneSecond: (
+      state,
+      action: PayloadAction<number>
+    ) => {
+      state.processes[action.payload].idleTime =
+        +(state.processes[action.payload].idleTime || 0) + 1;
+    },
+    incrementTotalScreenTimeByOneSecond: (state) => {
+      state.screenTime += 1;
     },
   },
 });
 
 export const {
   addNewProcess,
-  incrementUsageTimeByOneSecond,
-  incrementIdleTimeByOneSecond,
+  incrementProcessUsageTimeByOneSecond,
+  incrementProcessIdleTimeByOneSecond,
+  incrementTotalScreenTimeByOneSecond,
 } = observerSlice.actions;
 
 export const observeProcess = (incomingProcess: Process): AppThunk => {
   return (dispatch, getState) => {
     const state = getState();
-
-    const processStateIndex = state.observer.findIndex(
+    dispatch(incrementTotalScreenTimeByOneSecond());
+    const processStateIndex = state.observer.processes.findIndex(
       (process) => process.windowPid === incomingProcess.windowPid
     );
 
@@ -41,29 +54,15 @@ export const observeProcess = (incomingProcess: Process): AppThunk => {
     }
 
     if (+incomingProcess.idleTime > 0) {
-      dispatch(incrementIdleTimeByOneSecond(processStateIndex));
+      dispatch(incrementProcessIdleTimeByOneSecond(processStateIndex));
       return;
     }
-    dispatch(incrementUsageTimeByOneSecond(processStateIndex));
+    dispatch(incrementProcessUsageTimeByOneSecond(processStateIndex));
   };
 };
 
-// export const incrementAsync = (delay = 1000): AppThunk => (dispatch) => {
-//   setTimeout(() => {
-//     dispatch(increment());
-//   }, delay);
-// };
-
 export default observerSlice.reducer;
 
-export const allProcesses = (state: RootState) => state.observer;
+export const allProcesses = (state: RootState) => state.observer.processes;
 
-export const totalScreenTime = (state: RootState) =>
-  state.observer
-    .map((process) => +process.usageTime)
-    .reduce((prev, next) => prev + next);
-
-export const totalIdleTime = (state: RootState) =>
-  state.observer
-    .map((process) => +process.idleTime)
-    .reduce((prev, next) => prev + next);
+export const totalScreenTime = (state: RootState) => state.observer.screenTime;
