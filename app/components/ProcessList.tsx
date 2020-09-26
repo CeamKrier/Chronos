@@ -25,13 +25,15 @@ export default function ProcessList() {
               <div className={CSS.processCardBodyColumn}>
                 <span>
                   Usage:
-                  {process.usageTime}
-                  seconds
+                  {` ${new Date((process.usageTime || 0) * 1000)
+                    .toISOString()
+                    .substr(11, 8)}`}
                 </span>
                 <span>
                   Idle:
-                  {process.idleTime}
-                  seconds
+                  {` ${new Date((process.idleTime || 0) * 1000)
+                    .toISOString()
+                    .substr(11, 8)}`}
                 </span>
               </div>
             </div>

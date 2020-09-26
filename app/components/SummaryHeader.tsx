@@ -54,7 +54,9 @@ export default function SummaryHeader() {
       </div>
       <div className={CSS.sessionInformationSection}>
         <span className={CSS.sessionInformationTitle}>Today`s session</span>
-        <span className={CSS.sessionInformationTime}>{screenTime}</span>
+        <span className={CSS.sessionInformationTime}>
+          {new Date(screenTime * 1000).toISOString().substr(11, 8)}
+        </span>
       </div>
       <div className={CSS.settingsSection}>
         <AiOutlineSetting size="1.5em" />

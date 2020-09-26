@@ -11,7 +11,11 @@ const observerSlice = createSlice({
   },
   reducers: {
     addNewProcess: (state, action: PayloadAction<Process>) => {
+      if (action.payload.idleTime > 0) {
+        state.screenTime = +action.payload.idleTime;
+      }
       state.processes.push(action.payload);
+      // state.screenTime += 1;
     },
     incrementProcessUsageTimeByOneSecond: (
       state,
@@ -19,6 +23,7 @@ const observerSlice = createSlice({
     ) => {
       state.processes[action.payload].usageTime =
         +(state.processes[action.payload].usageTime || 0) + 1;
+      state.screenTime += 1;
     },
     incrementProcessIdleTimeByOneSecond: (
       state,
@@ -26,8 +31,6 @@ const observerSlice = createSlice({
     ) => {
       state.processes[action.payload].idleTime =
         +(state.processes[action.payload].idleTime || 0) + 1;
-    },
-    incrementTotalScreenTimeByOneSecond: (state) => {
       state.screenTime += 1;
     },
   },
@@ -37,13 +40,11 @@ export const {
   addNewProcess,
   incrementProcessUsageTimeByOneSecond,
   incrementProcessIdleTimeByOneSecond,
-  incrementTotalScreenTimeByOneSecond,
 } = observerSlice.actions;
 
 export const observeProcess = (incomingProcess: Process): AppThunk => {
   return (dispatch, getState) => {
     const state = getState();
-    dispatch(incrementTotalScreenTimeByOneSecond());
     const processStateIndex = state.observer.processes.findIndex(
       (process) => process.windowPid === incomingProcess.windowPid
     );

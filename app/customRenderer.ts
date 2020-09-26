@@ -4,4 +4,4 @@ const customTitlebar = require('custom-electron-titlebar');
 new customTitlebar.Titlebar({
   backgroundColor: customTitlebar.Color.fromHex('#3C3C3C'),
   icon: '../resources/icon.ico',
-});
+}).updateTitle('memo - Process Tracker');
