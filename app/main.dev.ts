@@ -11,10 +11,10 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import path from 'path';
-import { app, BrowserWindow, ipcMain, Menu } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
-// import MenuBuilder from './menu';
+import MenuBuilder from './menu';
 import { Process } from './utils/typeKeeper';
 
 const activeWindows = require('electron-active-window');
@@ -53,7 +53,7 @@ const installExtensions = async () => {
 };
 
 const createWindow = async () => {
-  Menu.setApplicationMenu(null);
+  // Menu.setApplicationMenu(null);
 
   if (
     process.env.NODE_ENV === 'development' ||
@@ -124,8 +124,8 @@ const createWindow = async () => {
     mainWindow = null;
   });
 
-  // const menuBuilder = new MenuBuilder(mainWindow);
-  // menuBuilder.buildMenu();
+  const menuBuilder = new MenuBuilder(mainWindow);
+  menuBuilder.buildMenu();
 
   // Remove this if your app does not use auto updates
   // eslint-disable-next-line
