@@ -6,7 +6,7 @@ import DataStore, {
 } from '../../utils/electronStore';
 // eslint-disable-next-line import/no-cycle
 import { AppThunk, RootState } from '../../store';
-import { Process } from '../../utils/typeKeeper';
+import { ProcessType } from '../../utils/typeKeeper';
 
 const Storage = DataStore();
 const date = new Date().toISOString().slice(0, 10);
@@ -18,7 +18,7 @@ const prepareInitialState = () => {
   }
   return {
     screenTime: 0,
-    processes: new Array<Process>(),
+    processes: new Array<ProcessType>(),
   };
 };
 
@@ -26,7 +26,7 @@ const observerSlice = createSlice({
   name: 'observer',
   initialState: prepareInitialState(),
   reducers: {
-    addNewProcess: (state, action: PayloadAction<Process>) => {
+    addNewProcess: (state, action: PayloadAction<ProcessType>) => {
       if (action.payload.idleTime > 0) {
         state.screenTime = +action.payload.idleTime;
       }
@@ -70,7 +70,7 @@ export const {
   incrementProcessIdleTimeByOneSecond,
 } = observerSlice.actions;
 
-export const observeProcess = (incomingProcess: Process): AppThunk => {
+export const observeProcess = (incomingProcess: ProcessType): AppThunk => {
   return (dispatch, getState) => {
     const state = getState();
     const processStateIndex = state.observer.processes.findIndex(
