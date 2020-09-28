@@ -1,20 +1,38 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import DataStore, {
+  AddNewProcessToStorage,
+  UpdateProcessIdleTimeInStorage,
+  UpdateProcessUsageTimeInStorage,
+} from '../../utils/electronStore';
 // eslint-disable-next-line import/no-cycle
 import { AppThunk, RootState } from '../../store';
 import { Process } from '../../utils/typeKeeper';
 
-const observerSlice = createSlice({
-  name: 'observer',
-  initialState: {
+const Storage = DataStore();
+const date = new Date().toISOString().slice(0, 10);
+
+const prepareInitialState = () => {
+  const todaysSession = Storage.get(date);
+  if (todaysSession) {
+    return { ...todaysSession };
+  }
+  return {
     screenTime: 0,
     processes: new Array<Process>(),
-  },
+  };
+};
+
+const observerSlice = createSlice({
+  name: 'observer',
+  initialState: prepareInitialState(),
   reducers: {
     addNewProcess: (state, action: PayloadAction<Process>) => {
       if (action.payload.idleTime > 0) {
         state.screenTime = +action.payload.idleTime;
       }
       state.processes.push(action.payload);
+
+      AddNewProcessToStorage(date, action.payload);
       // state.screenTime += 1;
     },
     incrementProcessUsageTimeByOneSecond: (
@@ -24,6 +42,11 @@ const observerSlice = createSlice({
       state.processes[action.payload].usageTime =
         +(state.processes[action.payload].usageTime || 0) + 1;
       state.screenTime += 1;
+
+      UpdateProcessUsageTimeInStorage(date, {
+        sessionIndex: action.payload,
+        usageTime: state.processes[action.payload].usageTime,
+      });
     },
     incrementProcessIdleTimeByOneSecond: (
       state,
@@ -32,6 +55,11 @@ const observerSlice = createSlice({
       state.processes[action.payload].idleTime =
         +(state.processes[action.payload].idleTime || 0) + 1;
       state.screenTime += 1;
+
+      UpdateProcessIdleTimeInStorage(date, {
+        sessionIndex: action.payload,
+        idleTime: state.processes[action.payload].idleTime,
+      });
     },
   },
 });
