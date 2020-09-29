@@ -14,7 +14,11 @@ export default function () {
   return config.store;
 }
 
-export const AddNewProcessToStorage = (key: string, payload: ProcessType) => {
+export const AddNewProcessToStorage = (
+  key: string,
+  payload: ProcessType,
+  hasBeenIdle: boolean
+) => {
   const oldSession = config.store?.get(key);
   if (!oldSession) {
     config.store?.set(key, {
@@ -22,6 +26,9 @@ export const AddNewProcessToStorage = (key: string, payload: ProcessType) => {
       screenTime: 0,
     });
   } else {
+    if (hasBeenIdle) {
+      oldSession.screenTime += +payload.idleTime;
+    }
     oldSession.processes.push(payload);
     config.store?.set(key, oldSession);
   }

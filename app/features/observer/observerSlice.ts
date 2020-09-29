@@ -9,7 +9,9 @@ import { AppThunk, RootState } from '../../store';
 import { ProcessType } from '../../utils/typeKeeper';
 
 const Storage = DataStore();
-const date = new Date().toISOString().slice(0, 10);
+// Timezone offset in miliseconds
+const timezoneOffset = new Date().getTimezoneOffset() * 60000;
+const date = new Date(Date.now() - timezoneOffset).toISOString().slice(0, 10);
 
 const prepareInitialState = () => {
   const todaysSession = Storage.get(date);
@@ -48,8 +50,10 @@ const observerSlice = createSlice({
   initialState: prepareInitialState(),
   reducers: {
     addNewProcess: (state, action: PayloadAction<ProcessType>) => {
+      let hasBeenIdle = false;
       if (action.payload.idleTime > 0) {
-        state.screenTime = +action.payload.idleTime;
+        state.screenTime += +action.payload.idleTime;
+        hasBeenIdle = true;
       }
       action.payload.windowClass = prettifyProcessName(
         action.payload.windowClass,
@@ -57,7 +61,7 @@ const observerSlice = createSlice({
       );
       state.processes.push(action.payload);
 
-      AddNewProcessToStorage(date, action.payload);
+      AddNewProcessToStorage(date, action.payload, hasBeenIdle);
     },
     incrementProcessUsageTimeByOneSecond: (
       state,
