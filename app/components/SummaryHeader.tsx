@@ -47,9 +47,9 @@ export default function SummaryHeader() {
         tabIndex={0}
       >
         {isObserving ? (
-          <VscDebugStop size="1.5em" />
+          <VscDebugStop size="2em" />
         ) : (
-          <VscDebugStart size="1.5em" />
+          <VscDebugStart size="2em" />
         )}
       </div>
       <div className={CSS.sessionInformationSection}>
@@ -59,7 +59,7 @@ export default function SummaryHeader() {
         </span>
       </div>
       <div className={CSS.settingsSection}>
-        <AiOutlineSetting size="1.5em" />
+        <AiOutlineSetting size="2em" />
       </div>
     </div>
   );

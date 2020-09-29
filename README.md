@@ -8,3 +8,7 @@
 - **Alarms (WIP):** Define a upper boundary for your screen time and get notified if reached
 - **Settings (WIP):** Defines settings related to processes, run on start-up etc.
 - **Persistent Data (WIP):** Session information persist on your hard-drive and available for habit analyze
+  - File Location:
+    - **_Windows_**: `C:\Users\<Username>\AppData\Roaming\Electron\config.json`
+    - **_MacOS_**:
+    - **_Linux_**:

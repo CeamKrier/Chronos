@@ -3,7 +3,7 @@ import React, { useEffect, useCallback, useMemo } from 'react';
 import { ipcRenderer } from 'electron';
 import { useDispatch } from 'react-redux';
 import { observeProcess } from '../features/observer/observerSlice';
-import { Process } from '../utils/typeKeeper';
+import { ProcessType } from '../utils/typeKeeper';
 // import routes from '../constants/routes.json';
 import styles from './Home.css';
 import ProcessList from './ProcessList';
@@ -13,7 +13,7 @@ export default function Home(): JSX.Element {
   const dispatch = useDispatch();
 
   const handleProcess = useCallback(
-    (_, data: Process) => {
+    (_, data: ProcessType) => {
       dispatch(observeProcess(data));
     },
     [dispatch]
