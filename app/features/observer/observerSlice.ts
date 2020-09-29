@@ -22,6 +22,27 @@ const prepareInitialState = () => {
   };
 };
 
+const capitalizeWord = (word: string) => {
+  return word[0].toUpperCase() + word.slice(1);
+};
+
+const prettifyProcessName = (
+  processName: string,
+  os: 'macos' | 'linux' | 'windows'
+) => {
+  if (os === 'macos') {
+    // ex: com.microsoft.VSCode
+    const splittedProcess = processName.split('.');
+    return splittedProcess[splittedProcess.length - 1];
+  }
+  if (os === 'windows') {
+    // ex: chrome.exe
+    return capitalizeWord(processName.split('.')[0]);
+  }
+  // ex: chromium
+  return capitalizeWord(processName);
+};
+
 const observerSlice = createSlice({
   name: 'observer',
   initialState: prepareInitialState(),
@@ -30,10 +51,13 @@ const observerSlice = createSlice({
       if (action.payload.idleTime > 0) {
         state.screenTime = +action.payload.idleTime;
       }
+      action.payload.windowClass = prettifyProcessName(
+        action.payload.windowClass,
+        action.payload.os
+      );
       state.processes.push(action.payload);
 
       AddNewProcessToStorage(date, action.payload);
-      // state.screenTime += 1;
     },
     incrementProcessUsageTimeByOneSecond: (
       state,
@@ -74,10 +98,13 @@ export const observeProcess = (incomingProcess: ProcessType): AppThunk => {
   return (dispatch, getState) => {
     const state = getState();
     const processStateIndex = state.observer.processes.findIndex(
-      (process) => process.windowPid === incomingProcess.windowPid
+      (process) =>
+        process.windowPid === incomingProcess.windowPid ||
+        process.windowClass ===
+          prettifyProcessName(incomingProcess.windowClass, incomingProcess.os)
     );
 
-    if (processStateIndex === -1) {
+    if (processStateIndex === -1 && incomingProcess.windowName.length > 0) {
       dispatch(addNewProcess(incomingProcess));
       return;
     }
