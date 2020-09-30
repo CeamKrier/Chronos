@@ -8,6 +8,7 @@ import { ProcessType } from '../utils/typeKeeper';
 import styles from './Home.css';
 import ProcessList from './ProcessList';
 import SummaryHeader, { StartObserver, StopObserver } from './SummaryHeader';
+import SettingsDrawer from './SettingsDrawer';
 
 export default function Home(): JSX.Element {
   const dispatch = useDispatch();
@@ -35,10 +36,13 @@ export default function Home(): JSX.Element {
 
   const renderSummaryHeader = useMemo(() => <SummaryHeader />, []);
 
+  const renderSettingsDrawer = useMemo(() => <SettingsDrawer />, []);
+
   return (
     <div className={styles.container} data-tid="container">
       {renderSummaryHeader}
       {/* <Link to={routes.COUNTER}>to Counter</Link> */}
+      {renderSettingsDrawer}
       {renderProcessList}
     </div>
   );

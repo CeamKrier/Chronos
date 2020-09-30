@@ -4,6 +4,7 @@
   align-items: center;
   overflow-y: auto;
   height: calc(100vh - 6em);
+  padding-top: 0.5em;
 }
 
 .processCard {

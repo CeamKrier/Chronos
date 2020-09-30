@@ -1,0 +1,28 @@
+.settingsDrawerWrapper {
+  width: 100vw;
+
+  /* 6em difference as the processList and .5em less to omit the padding */
+  height: calc(100vh - 5.5em);
+  position: absolute;
+  overflow: hidden;
+  visibility: hidden;
+  transition: all 0.2s ease-in;
+}
+
+.settingsDrawerPanel {
+  width: 40vw;
+  height: inherit;
+  background-color: #242c39;
+  right: -40vw;
+  position: absolute;
+  transition: all 0.3s ease-in;
+}
+
+.panelVisible {
+  right: 0;
+}
+
+.wrapperVisible {
+  background-color: #3c3c3c75;
+  visibility: visible;
+}

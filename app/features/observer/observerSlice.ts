@@ -59,6 +59,8 @@ const observerSlice = createSlice({
         action.payload.windowClass,
         action.payload.os
       );
+      // Initiate the usageTime
+      action.payload.usageTime = 0;
       state.processes.push(action.payload);
 
       AddNewProcessToStorage(date, action.payload, hasBeenIdle);

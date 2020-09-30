@@ -1,9 +1,10 @@
 import React, { useState, useCallback } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { ipcRenderer } from 'electron';
 import { AiOutlineSetting } from 'react-icons/ai';
 import { VscDebugStart, VscDebugStop } from 'react-icons/vsc';
 import { totalScreenTime } from '../features/observer/observerSlice';
+import { ToggleDrawerVisibility } from '../features/settings/settingsSlice';
 import CSS from './SummaryHeader.css';
 
 export const StopObserver = () => {
@@ -15,6 +16,7 @@ export const StartObserver = () => {
 };
 
 export default function SummaryHeader() {
+  const dispatch = useDispatch();
   const screenTime = useSelector(totalScreenTime);
   const [isObserving, setObservingState] = useState(true);
 
@@ -35,6 +37,19 @@ export default function SummaryHeader() {
       }
     },
     [handleObservationState]
+  );
+
+  const handleSettingsPanelVisibilityViaClick = useCallback(() => {
+    dispatch(ToggleDrawerVisibility());
+  }, [dispatch]);
+
+  const handleSettingsPanelVisibilityViaKey = useCallback(
+    (e: React.KeyboardEvent<HTMLElement>) => {
+      if (e.keyCode === 32) {
+        handleSettingsPanelVisibilityViaClick();
+      }
+    },
+    [handleSettingsPanelVisibilityViaClick]
   );
 
   return (
@@ -58,7 +73,13 @@ export default function SummaryHeader() {
           {new Date(screenTime * 1000).toISOString().substr(11, 8)}
         </span>
       </div>
-      <div className={CSS.settingsSection}>
+      <div
+        className={CSS.settingsSection}
+        onClick={handleSettingsPanelVisibilityViaClick}
+        onKeyDown={handleSettingsPanelVisibilityViaKey}
+        role="button"
+        tabIndex={0}
+      >
         <AiOutlineSetting size="2em" />
       </div>
     </div>
