@@ -15,7 +15,7 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
-import { Process } from './utils/typeKeeper';
+import { ProcessType } from './utils/typeKeeper';
 
 const activeWindows = require('electron-active-window');
 
@@ -105,7 +105,7 @@ const createWindow = async () => {
     const intervalID = setInterval(() => {
       activeWindows()
         .getActiveWindow()
-        .then((result: Process) =>
+        .then((result: ProcessType) =>
           mainWindow?.webContents.send('activeProcess', result)
         )
         .catch(() => {

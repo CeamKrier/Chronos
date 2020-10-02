@@ -1,12 +1,32 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import DataStore, {
+  UpdateApplicationBootPreferenceInStorage,
+} from '../../utils/electronStore';
 // eslint-disable-next-line import/no-cycle
 import { AppThunk, RootState } from '../../store';
 
+const Storage = DataStore();
+
+const prepareInitialState = () => {
+  const applicationSettings = Storage.get('settings');
+  if (applicationSettings) {
+    return { isDrawerOpen: false, preferences: { ...applicationSettings } };
+  }
+  return {
+    isDrawerOpen: false,
+    preferences: {
+      launchAppOnBoot: true,
+      alertInfo: {
+        enabled: false,
+        limit: 0,
+      },
+    },
+  };
+};
+
 const SettingsSlice = createSlice({
   name: 'settings',
-  initialState: {
-    isDrawerOpen: false,
-  },
+  initialState: prepareInitialState(),
   reducers: {
     openSettingsDrawer: (state) => {
       state.isDrawerOpen = true;
@@ -14,10 +34,18 @@ const SettingsSlice = createSlice({
     closeSettingsDrawer: (state) => {
       state.isDrawerOpen = false;
     },
+    startApplicationAtBoot: (state, action: PayloadAction<boolean>) => {
+      state.preferences.launchAppOnBoot = action.payload;
+      UpdateApplicationBootPreferenceInStorage(action.payload);
+    },
   },
 });
 
-const { closeSettingsDrawer, openSettingsDrawer } = SettingsSlice.actions;
+export const {
+  closeSettingsDrawer,
+  openSettingsDrawer,
+  startApplicationAtBoot,
+} = SettingsSlice.actions;
 
 export const ToggleDrawerVisibility = (): AppThunk => {
   return (dispatch, getState) => {

@@ -7,9 +7,22 @@ export interface ProcessType {
   usageTime: number;
 }
 
-export interface StoreType {
-  [key: string]: {
+export interface SettingsType {
+  launchAtBoot: boolean;
+  alertInfo: {
+    enabled: boolean;
+    limit: number;
+  };
+}
+
+export interface DailyProcessSessionType {
+  [dateKey: string]: {
     processes: Array<ProcessType>;
     screenTime: number;
   };
+}
+
+export interface StoreType {
+  dailySessions: DailyProcessSessionType;
+  settings: SettingsType;
 }

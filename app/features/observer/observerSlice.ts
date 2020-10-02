@@ -14,7 +14,7 @@ const timezoneOffset = new Date().getTimezoneOffset() * 60000;
 const date = new Date(Date.now() - timezoneOffset).toISOString().slice(0, 10);
 
 const prepareInitialState = () => {
-  const todaysSession = Storage.get(date);
+  const todaysSession = Storage.get('dailySessions')[date];
   if (todaysSession) {
     return { ...todaysSession };
   }
@@ -110,8 +110,11 @@ export const observeProcess = (incomingProcess: ProcessType): AppThunk => {
           prettifyProcessName(incomingProcess.windowClass, incomingProcess.os)
     );
 
-    if (processStateIndex === -1 && incomingProcess.windowName.length > 0) {
-      dispatch(addNewProcess(incomingProcess));
+    if (processStateIndex === -1) {
+      // Defined inner condition to catch all possible -1 values at here
+      if (incomingProcess.windowName.length > 0) {
+        dispatch(addNewProcess(incomingProcess));
+      }
       return;
     }
 

@@ -3,8 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   isDrawerOpen,
   ToggleDrawerVisibility,
+  startApplicationAtBoot,
 } from '../features/settings/settingsSlice';
 import CSS from './SettingsDrawer.css';
+
+type SettingKinds = 'LaunchSetting' | 'AlarmSetting';
 
 export default function SettingsDrawer() {
   const dispatch = useDispatch();
@@ -14,20 +17,27 @@ export default function SettingsDrawer() {
     dispatch(ToggleDrawerVisibility());
   }, [dispatch]);
 
-  // const handleSettingsPanelVisibilityViaKey = useCallback(
-  //   (e) => {
-  //     if (e.keyCode === 32) {
-  //       handleSettingsPanelVisibilityViaClick();
-  //     }
-  //   },
-  //   [handleSettingsPanelVisibilityViaClick]
-  // );
-
   const handlePanelMenuItemClick = useCallback((e) => {
-    // Prevent the parent's click event to get triggered
+    // Prevent the parent's click event getting triggered
     e.stopPropagation();
     // Rest of the menu item click logic
   }, []);
+
+  const handleLaunchStartupPreference = useCallback(
+    (target: SettingKinds) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      switch (target) {
+        case 'AlarmSetting':
+          // console.log(event.target.checked);
+          break;
+        case 'LaunchSetting':
+          dispatch(startApplicationAtBoot(event.target.checked));
+          break;
+        default:
+          break;
+      }
+    },
+    [dispatch]
+  );
 
   return (
     // Wrapper's outer section will be toggling the visibilty state too. Does not have a role.
@@ -50,7 +60,30 @@ export default function SettingsDrawer() {
         }`}
         onClick={handlePanelMenuItemClick}
       >
-        Hello
+        <div className={CSS.settingsMenuItem}>
+          <div className={CSS.settingsMenuContent}>
+            <span>Launch on boot</span>
+            <input
+              type="checkbox"
+              id="appLaunch"
+              onChange={handleLaunchStartupPreference('LaunchSetting')}
+            />
+            <label htmlFor="appLaunch">Toggle App Launch</label>
+          </div>
+        </div>
+        <div
+          className={`${CSS.settingsMenuItem} ${CSS.disableMenuItemSeperator}`}
+        >
+          <div className={CSS.settingsMenuContent}>
+            <span>Enable screen-time limit</span>
+            <input
+              type="checkbox"
+              id="screenTimeLimit"
+              onChange={handleLaunchStartupPreference('AlarmSetting')}
+            />
+            <label htmlFor="screenTimeLimit">Screen Time Limit</label>
+          </div>
+        </div>
       </div>
     </div>
   );
