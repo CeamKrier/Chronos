@@ -1,3 +1,5 @@
+<p align="center"><img src="./internals/img/chronos.jpg" alt="Chronos Image" width="400"/></p>
+
 ## Chronos
 
 #### A desktop application that tracks screen time/idle time of used processes
