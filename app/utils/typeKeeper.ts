@@ -8,6 +8,11 @@ export interface ProcessType {
 }
 
 export interface SettingsType {
+  isDrawerOpen?: boolean;
+  preferences: SettingPreferenceType;
+}
+
+export interface SettingPreferenceType {
   launchAtBoot: boolean;
   alertInfo: {
     enabled: boolean;

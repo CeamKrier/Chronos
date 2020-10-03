@@ -4,6 +4,7 @@ import {
   isDrawerOpen,
   ToggleDrawerVisibility,
   startApplicationAtBoot,
+  shouldAppLaunchAtBoot,
 } from '../features/settings/settingsSlice';
 import CSS from './SettingsDrawer.css';
 
@@ -12,6 +13,7 @@ type SettingKinds = 'LaunchSetting' | 'AlarmSetting';
 export default function SettingsDrawer() {
   const dispatch = useDispatch();
   const isOpen = useSelector(isDrawerOpen);
+  const launchAtBoot = useSelector(shouldAppLaunchAtBoot);
 
   const handleSettingsPanelVisibilityViaClick = useCallback(() => {
     dispatch(ToggleDrawerVisibility());
@@ -67,6 +69,7 @@ export default function SettingsDrawer() {
               type="checkbox"
               id="appLaunch"
               onChange={handleLaunchStartupPreference('LaunchSetting')}
+              defaultChecked={launchAtBoot}
             />
             <label htmlFor="appLaunch">Toggle App Launch</label>
           </div>

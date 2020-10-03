@@ -1,5 +1,5 @@
 import Store from 'electron-store';
-import { ProcessType, StoreType } from './typeKeeper';
+import { ProcessType, StoreType, SettingsType } from './typeKeeper';
 
 const config: {
   store: Store<StoreType> | undefined;
@@ -65,8 +65,17 @@ export const UpdateApplicationBootPreferenceInStorage = (
 ) => {
   const oldSession = config.store?.get('settings');
   if (!oldSession) {
+    config.store?.set('settings', <SettingsType>{
+      preferences: {
+        launchAtBoot: false,
+        alertInfo: {
+          enabled: false,
+          limit: 0,
+        },
+      },
+    });
     return;
   }
-  oldSession.launchAtBoot = shouldLaunchAtBoot;
+  oldSession.preferences.launchAtBoot = shouldLaunchAtBoot;
   config.store?.set('settings', oldSession);
 };
