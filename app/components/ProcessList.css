@@ -40,6 +40,10 @@
   justify-content: space-evenly;
 }
 
+.processName {
+  font-weight: 700;
+}
+
 .processListWrapper::-webkit-scrollbar-track {
   background-color: #232c39;
 }

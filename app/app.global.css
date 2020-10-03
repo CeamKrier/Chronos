@@ -46,3 +46,11 @@ a:hover {
   text-decoration: none;
   cursor: pointer;
 }
+
+.container-after-titlebar {
+  overflow: hidden;
+}
+
+.menubar {
+  min-width: 8em !important;
+}

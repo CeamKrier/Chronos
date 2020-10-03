@@ -14,7 +14,7 @@ export default function ProcessList() {
           <div className={CSS.processCard} key={process.windowPid}>
             <div className={CSS.processCardBody}>
               <div className={CSS.processCardBodyColumn}>
-                <span>{`${process.windowClass}`}</span>
+                <span className={CSS.processName}>{process.windowClass}</span>
                 {/* <span>
                   PID:
                   {process.windowPid}

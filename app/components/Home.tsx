@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux';
 import { observeProcess } from '../features/observer/observerSlice';
 import { ProcessType } from '../utils/typeKeeper';
 // import routes from '../constants/routes.json';
-import styles from './Home.css';
 import ProcessList from './ProcessList';
 import SummaryHeader, { StartObserver, StopObserver } from './SummaryHeader';
 import SettingsDrawer from './SettingsDrawer';
@@ -39,7 +38,7 @@ export default function Home(): JSX.Element {
   const renderSettingsDrawer = useMemo(() => <SettingsDrawer />, []);
 
   return (
-    <div className={styles.container} data-tid="container">
+    <div data-tid="container">
       {renderSummaryHeader}
       {/* <Link to={routes.COUNTER}>to Counter</Link> */}
       {renderSettingsDrawer}
