@@ -36,6 +36,7 @@ Sentry.init({
 
 let mainWindow: BrowserWindow | null = null;
 const store: { observerID: NodeJS.Timeout | null } = { observerID: null };
+const gotTheLock = app.requestSingleInstanceLock();
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -141,6 +142,19 @@ app.on('window-all-closed', () => {
     app.quit();
   }
 });
+
+if (!gotTheLock) {
+  app.quit();
+} else {
+  app.on('second-instance', () => {
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) {
+        mainWindow.restore();
+      }
+      mainWindow.focus();
+    }
+  });
+}
 
 if (process.env.E2E_BUILD === 'true') {
   // eslint-disable-next-line promise/catch-or-return
