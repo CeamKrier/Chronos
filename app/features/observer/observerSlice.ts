@@ -14,7 +14,12 @@ const timezoneOffset = new Date().getTimezoneOffset() * 60000;
 const date = new Date(Date.now() - timezoneOffset).toISOString().slice(0, 10);
 
 const prepareInitialState = () => {
-  const todaysSession = Storage.get('dailySessions')[date];
+  const sessions = Storage.get('dailySessions');
+  if (!sessions) {
+    // Very first run of the app, create the config.json file with empty process array
+    Storage.set('dailySessions', {});
+  }
+  const todaysSession = sessions && sessions[date];
   if (todaysSession) {
     return { ...todaysSession };
   }

@@ -10,22 +10,29 @@
  */
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-import path from 'path';
 import { app, BrowserWindow, ipcMain, Menu } from 'electron';
-import { autoUpdater } from 'electron-updater';
-import log from 'electron-log';
+// import { autoUpdater } from 'electron-updater';
+// import log from 'electron-log';
+import * as Sentry from '@sentry/electron';
 // import MenuBuilder from './menu';
 import { ProcessType } from './utils/typeKeeper';
 
 const activeWindows = require('electron-active-window');
 
-export default class AppUpdater {
-  constructor() {
-    log.transports.file.level = 'info';
-    autoUpdater.logger = log;
-    autoUpdater.checkForUpdatesAndNotify();
-  }
-}
+Sentry.init({
+  dsn:
+    'https://d032dacd11e34cf584a4bacbe4e45c17@o457231.ingest.sentry.io/5452877',
+});
+
+// app.allowRendererProcessReuse = true;
+
+// export default class AppUpdater {
+//   constructor() {
+//     log.transports.file.level = 'info';
+//     autoUpdater.logger = log;
+//     autoUpdater.checkForUpdatesAndNotify();
+//   }
+// }
 
 let mainWindow: BrowserWindow | null = null;
 const store: { observerID: NodeJS.Timeout | null } = { observerID: null };
@@ -68,16 +75,7 @@ const createWindow = async () => {
     height: 728,
     frame: false,
     webPreferences: {
-      // devTools: false,
-      ...((process.env.NODE_ENV === 'development' ||
-        process.env.E2E_BUILD === 'true') &&
-      process.env.ERB_SECURE !== 'true'
-        ? {
-            nodeIntegration: true,
-          }
-        : {
-            preload: path.join(__dirname, 'dist/renderer.prod.js'),
-          }),
+      nodeIntegration: true,
     },
   });
 
@@ -129,7 +127,7 @@ const createWindow = async () => {
 
   // Remove this if your app does not use auto updates
   // eslint-disable-next-line
-  new AppUpdater();
+  // new AppUpdater();
 };
 
 /**

@@ -2,7 +2,7 @@
   width: 100vw;
 
   /* 6em difference as the processList and .5em less to omit the padding */
-  height: calc(100vh - 5.5em);
+  height: calc(100vh - 4em);
   position: absolute;
   overflow: hidden;
   visibility: hidden;

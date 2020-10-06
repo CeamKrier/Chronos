@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   overflow-y: auto;
-  height: calc(100vh - 6em);
+  height: calc(100vh - 7em);
   padding-top: 0.5em;
 }
 
