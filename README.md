@@ -1,4 +1,4 @@
-<p align="center"><img src="./internals/img/chronos.jpg" alt="Chronos Image" width="400"/></p>
+<p align="center"><img src="./internals/img/chronos.svg" alt="Chronos Image" width="400"/></p>
 
 ## Chronos
 
@@ -11,7 +11,7 @@
 - **Settings (WIP):** Defines settings related to processes, run on start-up etc.
 - **Persistent Data:** Session information persist on your hard-drive
   - File Location:
-    - **_Windows_**: `C:\Users\<Username>\AppData\Roaming\Electron\config.json`
+    - **_Windows_**: `C:\Users\<Username>\AppData\Roaming\Chronos\config.json`
     - **_MacOS_**:
     - **_Linux_**:
 - **Historical Session Analitics: (WIP)** Analyze your average screen-time, most used process etc.
