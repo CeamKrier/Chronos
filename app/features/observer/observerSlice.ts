@@ -132,7 +132,10 @@ export const observeProcess = (incomingProcess: ProcessType): AppThunk => {
 };
 
 export default observerSlice.reducer;
-
-export const allProcesses = (state: RootState) => state.observer.processes;
+// .slice() will create a shallow copy of the state
+export const allProcesses = (state: RootState) =>
+  state.observer.processes
+    .slice()
+    .sort((prev, next) => +next.usageTime - +prev.usageTime);
 
 export const totalScreenTime = (state: RootState) => state.observer.screenTime;
