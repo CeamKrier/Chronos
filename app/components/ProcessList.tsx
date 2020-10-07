@@ -5,17 +5,17 @@ import { VscVmRunning } from 'react-icons/vsc';
 import { allProcesses } from '../features/observer/observerSlice';
 import CSS from './ProcessList.css';
 
-const normalizeProcessName = (rawName: string) => {
-  // Process might be Chrome, VS Code as xxxx - xxxx - Google Chrome
-  if (rawName.includes(' - ')) {
-    const splittedName = rawName.split(' - ');
-    if (splittedName[0] === 'Developer Tools') {
-      return splittedName[0];
-    }
-    return splittedName[splittedName.length - 1];
-  }
-  return rawName;
-};
+// const normalizeProcessName = (rawName: string) => {
+//   // Process might be Chrome, VS Code as xxxx - xxxx - Google Chrome
+//   if (rawName.includes(' - ')) {
+//     const splittedName = rawName.split(' - ');
+//     if (splittedName[0] === 'Developer Tools') {
+//       return splittedName[0];
+//     }
+//     return splittedName[splittedName.length - 1];
+//   }
+//   return rawName;
+// };
 
 export default function ProcessList() {
   const processLog = useSelector(allProcesses);
@@ -27,7 +27,9 @@ export default function ProcessList() {
             <div className={CSS.processCardBody}>
               <div className={CSS.processCardBodyColumn}>
                 <span className={CSS.processName}>
-                  {normalizeProcessName(process.windowName)}
+                  {process.windowName.length > 20
+                    ? process.windowClass
+                    : process.windowName}
                 </span>
                 {/* <span>
                   PID:
