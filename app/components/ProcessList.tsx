@@ -2,7 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { RiZzzLine } from 'react-icons/ri';
 import { VscVmRunning } from 'react-icons/vsc';
-import { allProcesses } from '../features/observer/observerSlice';
+import {
+  allProcesses,
+  totalScreenTime,
+} from '../features/observer/observerSlice';
 import CSS from './ProcessList.css';
 
 // const normalizeProcessName = (rawName: string) => {
@@ -19,6 +22,8 @@ import CSS from './ProcessList.css';
 
 export default function ProcessList() {
   const processLog = useSelector(allProcesses);
+  const screenTime = useSelector(totalScreenTime);
+
   return (
     <div className={CSS.processListWrapper}>
       {processLog.map((process) => {
@@ -31,10 +36,10 @@ export default function ProcessList() {
                     ? process.windowClass
                     : process.windowName}
                 </span>
-                {/* <span>
-                  PID:
-                  {process.windowPid}
-                </span> */}
+                <span>
+                  Active Usage:
+                  {` ${((process.usageTime / screenTime) * 100).toFixed(2)}%`}
+                </span>
               </div>
 
               <div className={CSS.processCardBodyColumn}>
