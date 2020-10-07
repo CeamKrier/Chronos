@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   overflow-y: auto;
-  height: calc(100vh - 7em);
+  height: calc(100vh - 10em);
   padding-top: 0.5em;
 }
 
@@ -42,6 +42,13 @@
 
 .processName {
   font-weight: 700;
+}
+
+.usagePercentageIndicator {
+  height: 0.5em;
+  background-color: yellow;
+  margin-top: -0.25em;
+  border-radius: 0.2em;
 }
 
 .processListWrapper::-webkit-scrollbar-track {

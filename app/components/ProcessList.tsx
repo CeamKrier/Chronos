@@ -37,8 +37,10 @@ export default function ProcessList() {
                     : process.windowName}
                 </span>
                 <span>
-                  Active Usage:
-                  {` ${((process.usageTime / screenTime) * 100).toFixed(2)}%`}
+                  {`Active Usage: ${(
+                    (process.usageTime / screenTime) *
+                    100
+                  ).toFixed(1)}%`}
                 </span>
               </div>
 
@@ -57,6 +59,12 @@ export default function ProcessList() {
                 </span>
               </div>
             </div>
+            {/* <div
+              className={CSS.usagePercentageIndicator}
+              style={{
+                width: `${((process.usageTime / screenTime) * 100).toFixed(1)}%`,
+              }}
+            ></div> */}
           </div>
         );
       })}
