@@ -11,13 +11,13 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import { app, BrowserWindow, ipcMain, Menu } from 'electron';
+import activeWin from 'active-win';
 // import { autoUpdater } from 'electron-updater';
 // import log from 'electron-log';
 import * as Sentry from '@sentry/electron';
 // import MenuBuilder from './menu';
-import { ProcessType } from './utils/typeKeeper';
 
-const activeWindows = require('electron-active-window');
+const desktopIdle = require('desktop-idle');
 
 Sentry.init({
   dsn:
@@ -102,10 +102,12 @@ const createWindow = async () => {
       return;
     }
     const intervalID = setInterval(() => {
-      activeWindows()
-        .getActiveWindow()
-        .then((result: ProcessType) =>
-          mainWindow?.webContents.send('activeProcess', result)
+      activeWin()
+        .then((result) =>
+          mainWindow?.webContents.send('activeProcess', {
+            ...result,
+            idleTime: desktopIdle.getIdleTime(),
+          })
         )
         .catch(() => {
           console.log('Could not retrieve current window data');

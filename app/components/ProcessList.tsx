@@ -20,22 +20,40 @@ import CSS from './ProcessList.css';
 //   return rawName;
 // };
 
+const colorPalette = [
+  '#005CE6',
+  '#4791FF',
+  '#40A077',
+  '#50B988',
+  '#91D4BC',
+  '#F3FFC6',
+  '#C3EB78',
+  '#B6174B',
+  '#CD7E7C',
+  '#E0AFA0',
+  '#FFAC81',
+  '#FF928B',
+  '#FEC3A6',
+  '#EFE9AE',
+  '#CDEAC0',
+];
+
 export default function ProcessList() {
   const processLog = useSelector(allProcesses);
   const screenTime = useSelector(totalScreenTime);
 
   return (
     <div className={CSS.processListWrapper}>
-      {processLog.map((process) => {
+      {processLog.map((process, index) => {
         return (
-          <div className={CSS.processCard} key={process.windowPid}>
+          <div className={CSS.processCard} key={process.id}>
             <div className={CSS.processCardBody}>
+              <div
+                className={CSS.processColorIndicator}
+                style={{ background: colorPalette[index] }}
+              />
               <div className={CSS.processCardBodyColumn}>
-                <span className={CSS.processName}>
-                  {process.windowName.length > 20
-                    ? process.windowClass
-                    : process.windowName}
-                </span>
+                <span className={CSS.processName}>{process.owner.name}</span>
                 <span>
                   {`Active Usage: ${(
                     (process.usageTime / screenTime) *

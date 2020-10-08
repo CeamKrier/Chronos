@@ -44,6 +44,14 @@
   font-weight: 700;
 }
 
+.processColorIndicator {
+  width: 3em;
+  height: inherit;
+  background: red;
+  border-top-left-radius: 0.2em;
+  border-bottom-left-radius: 0.2em;
+}
+
 .usagePercentageIndicator {
   height: 0.5em;
   background-color: yellow;
