@@ -1,9 +1,12 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ipcRenderer } from 'electron';
 import { AiOutlineSetting } from 'react-icons/ai';
 import { VscDebugStart, VscDebugStop } from 'react-icons/vsc';
-import { totalScreenTime } from '../features/observer/observerSlice';
+import {
+  totalScreenTime,
+  totalUsageTime,
+} from '../features/observer/observerSlice';
 import { ToggleDrawerVisibility } from '../features/settings/settingsSlice';
 import CSS from './SummaryHeader.css';
 
@@ -18,6 +21,16 @@ export const StartObserver = () => {
 export default function SummaryHeader() {
   const dispatch = useDispatch();
   const screenTime = useSelector(totalScreenTime);
+  const usageTotalTime = useSelector(totalUsageTime);
+  const screenTotalTime = useSelector(totalScreenTime);
+
+  const usagePercentage = useMemo(
+    () => +((usageTotalTime / screenTotalTime) * 100).toFixed(2) || 100,
+    [usageTotalTime, screenTotalTime]
+  );
+  const idlePercentage = useMemo(() => +(100 - usagePercentage).toFixed(2), [
+    usagePercentage,
+  ]);
   const [isObserving, setObservingState] = useState(true);
 
   const handleObservationState = useCallback(() => {
@@ -67,11 +80,31 @@ export default function SummaryHeader() {
           <VscDebugStart size="2em" />
         )}
       </div>
-      <div className={CSS.sessionInformationSection}>
-        <span className={CSS.sessionInformationTitle}>Today`s session</span>
-        <span className={CSS.sessionInformationTime}>
-          {new Date(screenTime * 1000).toISOString().substr(11, 8)}
-        </span>
+      <div className={CSS.scaleBarWrapper}>
+        <div className={CSS.scaleBarSectionTitleWrapper}>
+          <span>Active</span>
+          <div className={CSS.sessionInformationSection}>
+            <span className={CSS.sessionInformationTime}>
+              {new Date(screenTime * 1000).toISOString().substr(11, 8)}
+            </span>
+          </div>
+          <span>Inactive</span>
+        </div>
+        <div className={CSS.processScaleBar}>
+          <div
+            className={CSS.processPercentage}
+            style={{ width: `${usagePercentage}%` }}
+          >
+            {`${usagePercentage}%`}
+          </div>
+          <div className={CSS.processPercentagePointer} />
+          <div
+            className={CSS.processPercentage}
+            style={{ width: `${idlePercentage}%` }}
+          >
+            {`${idlePercentage}%`}
+          </div>
+        </div>
       </div>
       <div
         className={CSS.settingsSection}

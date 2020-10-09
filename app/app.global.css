@@ -58,7 +58,7 @@ a:hover {
 }
 
 .menubar {
-  min-width: 10em !important;
+  min-width: 8em !important;
 }
 
 .titlebar > .window-appicon {

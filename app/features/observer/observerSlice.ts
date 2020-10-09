@@ -132,4 +132,4 @@ export const totalScreenTime = (state: RootState) => state.observer.screenTime;
 export const totalUsageTime = (state: RootState) =>
   state.observer.processes
     .map((process) => process.usageTime)
-    .reduce((prev, next) => prev + next);
+    .reduce((prev, next) => prev + next, 0);

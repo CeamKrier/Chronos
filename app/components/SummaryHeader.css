@@ -1,6 +1,6 @@
 .headerWrapper {
   width: 100vw;
-  height: 3em;
+  height: 3.5em;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,7 +12,6 @@
   flex-direction: column;
   display: flex;
   align-items: center;
-  margin-top: 0.5em;
 }
 
 .sessionInformationTitle {
@@ -21,7 +20,7 @@
 }
 
 .sessionInformationTime {
-  font-size: xx-large;
+  font-size: 27px;
 }
 
 .settingsSection {
@@ -49,4 +48,44 @@
 .settingsSection:hover,
 .startStopSection:hover {
   opacity: 0.5;
+}
+
+/* Scale Bar */
+
+.scaleBarWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 65vw;
+  margin-right: 1em;
+}
+
+.scaleBarSectionTitleWrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1em 0.2em 1em;
+  align-items: flex-end;
+}
+
+.processScaleBar {
+  width: inherit;
+  height: 1.2em;
+  background: #e2e3e5;
+  display: flex;
+  align-items: center;
+  border-radius: 0.1em;
+  font-size: 14px;
+}
+
+.processPercentagePointer {
+  width: 0.3em;
+  height: 1.5em;
+  background: #bcdb59;
+  border-radius: 0.1em;
+}
+
+.processPercentage {
+  display: flex;
+  justify-content: center;
+  color: #242c39;
+  font-weight: 600;
 }
