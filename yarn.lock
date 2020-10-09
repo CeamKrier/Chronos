@@ -3953,6 +3953,10 @@ colorette@^1.2.0:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/colorette/-/colorette-1.2.1.tgz#4d0b921325c14faf92633086a536db6e89564b1b"
 
+colornames@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/colornames/-/colornames-1.1.1.tgz#f8889030685c7c4ff9e2a559f5077eb76a816f96"
+
 colors@^1.3.3:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/colors/-/colors-1.4.0.tgz#c50491479d4c1bdaed2c9ced32cf7c7dc2360f78"
@@ -4903,7 +4907,7 @@ ejs@^3.1.3:
   dependencies:
     jake "^10.6.1"
 
-electron-builder@^22.8.1:
+electron-builder@^22.3.6:
   version "22.8.1"
   resolved "https://registry.yarnpkg.com/electron-builder/-/electron-builder-22.8.1.tgz#84295190dae17b3892df7aa39ac334983aeaea06"
   dependencies:
@@ -6414,6 +6418,10 @@ hash.js@^1.0.0, hash.js@^1.0.3:
 hex-color-regex@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/hex-color-regex/-/hex-color-regex-1.1.0.tgz#4c06fccb4602fe2602b3c93df82d7e7dbf1a8a8e"
+
+hex-rgb@^4.1.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/hex-rgb/-/hex-rgb-4.2.0.tgz#fb377f2e5658fc924f1efa189685922e56ecaf0f"
 
 highlight-es@^1.0.0:
   version "1.0.3"
@@ -7976,13 +7984,25 @@ lodash.memoize@4.1.2, lodash.memoize@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
 
+lodash.padend@^4.6.1:
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/lodash.padend/-/lodash.padend-4.6.1.tgz#53ccba047d06e158d311f45da625f4e49e6f166e"
+
 lodash.sortby@^4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
 
+lodash.trimstart@^4.5.1:
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/lodash.trimstart/-/lodash.trimstart-4.5.1.tgz#8ff4dec532d82486af59573c39445914e944a7f1"
+
 lodash.uniq@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
+
+lodash.words@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/lodash.words/-/lodash.words-4.2.0.tgz#5ecfeaf8ecf8acaa8e0c8386295f1993c9cf4036"
 
 "lodash@4.6.1 || ^4.16.1", lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.4, lodash@^4.17.5:
   version "4.17.19"
@@ -10402,6 +10422,10 @@ reusify@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/reusify/-/reusify-1.0.4.tgz#90da382b1e126efc02146e90845a88db12925d76"
 
+rgb-hex@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/rgb-hex/-/rgb-hex-3.0.0.tgz#eab0168cc1279563b18a14605315389142e2e487"
+
 rgb-regex@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/rgb-regex/-/rgb-regex-1.0.1.tgz#c0e0d6882df0e23be254a475e8edd41915feaeb1"
@@ -11057,6 +11081,17 @@ string-length@^4.0.1:
   dependencies:
     char-regex "^1.0.2"
     strip-ansi "^6.0.0"
+
+string-to-color@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/string-to-color/-/string-to-color-2.2.2.tgz#46210bf7777dc9198dcdf997bd18ae6749cc9a73"
+  dependencies:
+    colornames "^1.1.1"
+    hex-rgb "^4.1.0"
+    lodash.padend "^4.6.1"
+    lodash.trimstart "^4.5.1"
+    lodash.words "^4.2.0"
+    rgb-hex "^3.0.0"
 
 string-width@^1.0.1:
   version "1.0.2"
