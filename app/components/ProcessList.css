@@ -30,6 +30,9 @@
   align-items: center;
   height: inherit;
   width: 50%;
+  border-radius: 0.2em;
+  background: #e2e3e5;
+  margin-left: -1em;
 }
 
 .processSpanElement {
@@ -45,7 +48,7 @@
 }
 
 .processColorIndicator {
-  width: 3em;
+  width: 2em;
   height: inherit;
   background: red;
   border-top-left-radius: 0.2em;

@@ -48,12 +48,6 @@ export default function ProcessList() {
                 </span>
               </div>
             </div>
-            {/* <div
-              className={CSS.usagePercentageIndicator}
-              style={{
-                width: `${((process.usageTime / screenTime) * 100).toFixed(1)}%`,
-              }}
-            ></div> */}
           </div>
         );
       })}
