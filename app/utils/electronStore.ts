@@ -14,11 +14,7 @@ export default function GetStoreInstance() {
   return config.store;
 }
 
-export const AddNewProcessToStorage = (
-  key: string,
-  payload: ProcessType,
-  hasBeenIdle: boolean
-) => {
+export const AddNewProcessToStorage = (key: string, payload: ProcessType) => {
   const oldSession = config.store?.get('dailySessions')[key];
   if (!oldSession) {
     config.store?.set(`dailySessions.${key}`, {
@@ -26,9 +22,6 @@ export const AddNewProcessToStorage = (
       screenTime: 0,
     });
   } else {
-    if (hasBeenIdle) {
-      oldSession.screenTime += +payload.idleTime;
-    }
     oldSession.processes.push(payload);
     config.store?.set(`dailySessions.${key}`, oldSession);
   }

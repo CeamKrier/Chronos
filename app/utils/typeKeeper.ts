@@ -1,11 +1,20 @@
-export interface ProcessType {
-  windowPid: number;
-  windowName: string;
-  windowClass: string;
-  os: 'windows' | 'macos' | 'linux';
-  idleTime: number;
+import { Result as ActiveWinResultType } from 'active-win';
+
+type UsageMetricsType = {
   usageTime: number;
-}
+  idleTime: number;
+};
+
+export type ProcessType = ActiveWinResultType & UsageMetricsType;
+
+// export interface ProcessType {
+//   windowPid: number;
+//   windowName: string;
+//   windowClass: string;
+//   os: 'windows' | 'macos' | 'linux';
+//   idleTime: number;
+//   usageTime: number;
+// }
 
 export interface SettingsType {
   isDrawerOpen?: boolean;

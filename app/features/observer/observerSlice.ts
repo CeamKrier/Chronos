@@ -16,7 +16,7 @@ const date = new Date(Date.now() - timezoneOffset).toISOString().slice(0, 10);
 const prepareInitialState = () => {
   const sessions = Storage.get('dailySessions');
   if (!sessions) {
-    // Very first run of the app, create the config.json file with empty process array
+    // Very first run of the app, create the config.json file with empty object
     Storage.set('dailySessions', {});
   }
   const todaysSession = sessions && sessions[date];
@@ -29,46 +29,38 @@ const prepareInitialState = () => {
   };
 };
 
-const capitalizeWord = (word: string) => {
-  return word[0].toUpperCase() + word.slice(1);
-};
+// const capitalizeWord = (word: string) => {
+//   return word[0].toUpperCase() + word.slice(1);
+// };
 
-const prettifyProcessName = (
-  processName: string,
-  os: 'macos' | 'linux' | 'windows'
-) => {
-  if (os === 'macos') {
-    // ex: com.microsoft.VSCode
-    const splittedProcess = processName.split('.');
-    return splittedProcess[splittedProcess.length - 1];
-  }
-  if (os === 'windows') {
-    // ex: chrome.exe
-    return capitalizeWord(processName.split('.')[0]);
-  }
-  // ex: chromium
-  return capitalizeWord(processName);
-};
+// const prettifyProcessName = (
+//   processName: string,
+//   os: 'macos' | 'linux' | 'windows'
+// ) => {
+//   if (os === 'macos') {
+//     // ex: com.microsoft.VSCode
+//     const splittedProcess = processName.split('.');
+//     return splittedProcess[splittedProcess.length - 1];
+//   }
+//   if (os === 'windows') {
+//     // ex: chrome.exe
+//     return capitalizeWord(processName.split('.')[0]);
+//   }
+//   // ex: chromium
+//   return capitalizeWord(processName);
+// };
 
 const observerSlice = createSlice({
   name: 'observer',
   initialState: prepareInitialState(),
   reducers: {
     addNewProcess: (state, action: PayloadAction<ProcessType>) => {
-      let hasBeenIdle = false;
-      if (action.payload.idleTime > 0) {
-        state.screenTime += +action.payload.idleTime;
-        hasBeenIdle = true;
-      }
-      action.payload.windowClass = prettifyProcessName(
-        action.payload.windowClass,
-        action.payload.os
-      );
-      // Initiate the usageTime
+      // Initiate the usageTime, idleTime
       action.payload.usageTime = 0;
+      action.payload.idleTime = 0;
       state.processes.push(action.payload);
 
-      AddNewProcessToStorage(date, action.payload, hasBeenIdle);
+      AddNewProcessToStorage(date, action.payload);
     },
     incrementProcessUsageTimeByOneSecond: (
       state,
@@ -110,16 +102,13 @@ export const observeProcess = (incomingProcess: ProcessType): AppThunk => {
     const state = getState();
     const processStateIndex = state.observer.processes.findIndex(
       (process) =>
-        process.windowPid === incomingProcess.windowPid ||
-        process.windowClass ===
-          prettifyProcessName(incomingProcess.windowClass, incomingProcess.os)
+        process.owner.processId === incomingProcess.owner.processId ||
+        process.owner.name === incomingProcess.owner.name
     );
 
     if (processStateIndex === -1) {
-      // Defined inner condition to catch all possible -1 values at here
-      if (incomingProcess.windowName.length > 0) {
-        dispatch(addNewProcess(incomingProcess));
-      }
+      // The process not exist in the storage, create a new record for it
+      dispatch(addNewProcess(incomingProcess));
       return;
     }
 
