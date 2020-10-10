@@ -8,7 +8,6 @@ import { ProcessType } from '../utils/typeKeeper';
 import ProcessList from './ProcessList';
 import SummaryHeader, { StartObserver, StopObserver } from './SummaryHeader';
 import SettingsDrawer from './SettingsDrawer';
-import Footer from './Footer';
 import CSS from './Home.css';
 
 export default function Home(): JSX.Element {
@@ -39,15 +38,12 @@ export default function Home(): JSX.Element {
 
   const renderSettingsDrawer = useMemo(() => <SettingsDrawer />, []);
 
-  const renderFooter = useMemo(() => <Footer />, []);
-
   return (
     <div className={CSS.container}>
       {renderSummaryHeader}
       {/* <Link to={routes.COUNTER}>to Counter</Link> */}
       {renderSettingsDrawer}
       {renderProcessList}
-      {renderFooter}
     </div>
   );
 }
