@@ -6,7 +6,7 @@ import DataStore, {
 } from '../../utils/electronStore';
 // eslint-disable-next-line import/no-cycle
 import { AppThunk, RootState } from '../../store';
-import { ProcessType } from '../../utils/typeKeeper';
+import { ProcessType, SettingsType } from '../../utils/typeKeeper';
 
 const Storage = DataStore();
 // Timezone offset in miliseconds
@@ -17,7 +17,16 @@ const prepareInitialState = () => {
   const sessions = Storage.get('dailySessions');
   if (!sessions) {
     // Very first run of the app, create the config.json file with empty object
-    Storage.set('dailySessions', {});
+    Storage.set('dailySessions', <ProcessType>{});
+    Storage.set('settings', <SettingsType>{
+      preferences: {
+        launchAtBoot: true,
+        alertInfo: {
+          enabled: false,
+          limit: 0,
+        },
+      },
+    });
   }
   const todaysSession = sessions && sessions[date];
   if (todaysSession) {
