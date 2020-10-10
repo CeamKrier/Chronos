@@ -12,9 +12,11 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import { app, BrowserWindow, ipcMain, Menu } from 'electron';
 import activeWin from 'active-win';
+import AutoLaunch from 'auto-launch';
+import * as Sentry from '@sentry/electron';
 // import { autoUpdater } from 'electron-updater';
 // import log from 'electron-log';
-import * as Sentry from '@sentry/electron';
+import DataStore from './utils/electronStore';
 // import MenuBuilder from './menu';
 
 const desktopIdle = require('desktop-idle');
@@ -23,6 +25,10 @@ Sentry.init({
   dsn:
     'https://d032dacd11e34cf584a4bacbe4e45c17@o457231.ingest.sentry.io/5452877',
 });
+
+const Storage = DataStore();
+const isAutoLaunchEnabled =
+  Storage.get('settings')?.preferences?.launchAtBoot || true;
 
 // app.allowRendererProcessReuse = true;
 
@@ -140,6 +146,22 @@ const createWindow = async () => {
 /**
  * Add event listeners...
  */
+
+const launchController = new AutoLaunch({
+  name: 'Chronos',
+  path: app.getPath('exe'),
+});
+
+if (isAutoLaunchEnabled) {
+  launchController.enable();
+} else {
+  launchController.disable();
+}
+
+app.setLoginItemSettings({
+  openAtLogin: true,
+  path: app.getPath('exe'),
+});
 
 app.on('window-all-closed', () => {
   // Respect the OSX convention of having the application in memory even
