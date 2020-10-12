@@ -16,7 +16,6 @@ import AutoLaunch from 'auto-launch';
 import * as Sentry from '@sentry/electron';
 // import { autoUpdater } from 'electron-updater';
 // import log from 'electron-log';
-import DataStore from './utils/electronStore';
 // import MenuBuilder from './menu';
 
 const desktopIdle = require('desktop-idle');
@@ -26,9 +25,10 @@ Sentry.init({
     'https://d032dacd11e34cf584a4bacbe4e45c17@o457231.ingest.sentry.io/5452877',
 });
 
-const Storage = DataStore();
-const isAutoLaunchEnabled =
-  Storage.get('settings')?.preferences?.launchAtBoot || true;
+const launchController = new AutoLaunch({
+  name: 'Chronos',
+  path: app.getPath('exe'),
+});
 
 // app.allowRendererProcessReuse = true;
 
@@ -131,6 +131,22 @@ const createWindow = async () => {
     store.observerID = null;
   });
 
+  ipcMain.on('setAutoLaunchPreference', (_, shouldAutoLaunch: boolean) => {
+    launchController
+      .isEnabled()
+      .then((isEnabled) => {
+        // eslint-disable-next-line promise/always-return
+        if (isEnabled && !shouldAutoLaunch) {
+          launchController.disable();
+        } else if (!isEnabled && shouldAutoLaunch) {
+          launchController.enable();
+        }
+      })
+      .catch((err) => {
+        console.log('Could not launch controller state information', err);
+      });
+  });
+
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
@@ -146,17 +162,6 @@ const createWindow = async () => {
 /**
  * Add event listeners...
  */
-
-const launchController = new AutoLaunch({
-  name: 'Chronos',
-  path: app.getPath('exe'),
-});
-
-if (isAutoLaunchEnabled) {
-  launchController.enable();
-} else {
-  launchController.disable();
-}
 
 app.setLoginItemSettings({
   openAtLogin: true,

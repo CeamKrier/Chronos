@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { ipcRenderer } from 'electron';
 import {
   isDrawerOpen,
   ToggleDrawerVisibility,
@@ -33,6 +34,7 @@ export default function SettingsDrawer() {
           break;
         case 'LaunchSetting':
           dispatch(startApplicationAtBoot(event.target.checked));
+          ipcRenderer.send('setAutoLaunchPreference', event.target.checked);
           break;
         default:
           break;
