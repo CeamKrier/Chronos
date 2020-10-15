@@ -10,7 +10,7 @@
  */
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-import { app, BrowserWindow, ipcMain, Menu } from 'electron';
+import { app, BrowserWindow, ipcMain, Menu, powerMonitor } from 'electron';
 import activeWin from 'active-win';
 import AutoLaunch from 'auto-launch';
 import * as Sentry from '@sentry/electron';
@@ -43,6 +43,31 @@ const launchController = new AutoLaunch({
 let mainWindow: BrowserWindow | null = null;
 const store: { observerID: NodeJS.Timeout | null } = { observerID: null };
 const gotTheLock = app.requestSingleInstanceLock();
+
+const clearObserverTicker = () => {
+  clearInterval(store.observerID as NodeJS.Timeout);
+  store.observerID = null;
+};
+
+const initiateObserverTicker = () => {
+  if (store.observerID) {
+    console.log('Observer already initiated');
+    return;
+  }
+  const intervalID = setInterval(() => {
+    activeWin()
+      .then((result) =>
+        mainWindow?.webContents.send('activeProcess', {
+          ...result,
+          idleTime: desktopIdle.getIdleTime(),
+        })
+      )
+      .catch(() => {
+        console.log('Could not retrieve current window data');
+      });
+  }, 1000);
+  store.observerID = intervalID;
+};
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -106,30 +131,33 @@ const createWindow = async () => {
     }
   });
 
-  ipcMain.on('startObserving', () => {
-    if (store.observerID) {
-      console.log('Observer already initiated');
-      return;
-    }
-    const intervalID = setInterval(() => {
-      activeWin()
-        .then((result) =>
-          mainWindow?.webContents.send('activeProcess', {
-            ...result,
-            idleTime: desktopIdle.getIdleTime(),
-          })
-        )
-        .catch(() => {
-          console.log('Could not retrieve current window data');
-        });
-    }, 1000);
-    store.observerID = intervalID;
+  ipcMain.on('startObserving', initiateObserverTicker);
+
+  ipcMain.on('stopObserving', clearObserverTicker);
+
+  ipcMain.on('setAutoLaunchPreference', (_, shouldAutoLaunch: boolean) => {
+    launchController
+      .isEnabled()
+      .then((isEnabled) => {
+        // eslint-disable-next-line promise/always-return
+        if (isEnabled && !shouldAutoLaunch) {
+          launchController.disable();
+        } else if (!isEnabled && shouldAutoLaunch) {
+          launchController.enable();
+        }
+      })
+      .catch((err) => {
+        console.log('Could not launch controller state information', err);
+      });
   });
 
-  ipcMain.on('stopObserving', () => {
-    clearInterval(store.observerID as NodeJS.Timeout);
-    store.observerID = null;
-  });
+  powerMonitor.on('lock-screen', clearObserverTicker);
+
+  powerMonitor.on('unlock-screen', initiateObserverTicker);
+
+  powerMonitor.on('suspend', clearObserverTicker);
+
+  powerMonitor.on('resume', initiateObserverTicker);
 
   ipcMain.on('setAutoLaunchPreference', (_, shouldAutoLaunch: boolean) => {
     launchController
