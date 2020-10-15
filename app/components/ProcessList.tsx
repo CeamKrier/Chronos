@@ -24,7 +24,11 @@ export default function ProcessList() {
                 style={{ background: StringToColor(process.owner.name) }}
               />
               <div className={CSS.processCardBodyColumn}>
-                <span className={CSS.processName}>{process.owner.name}</span>
+                <span className={CSS.processName}>
+                  {process.owner.name.length > 15
+                    ? `${process.owner.name.substring(0, 15)}..`
+                    : process.owner.name}
+                </span>
                 <span>
                   {`Active Usage: ${(
                     (process.usageTime / screenTime) *
