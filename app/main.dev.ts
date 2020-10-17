@@ -10,10 +10,19 @@
  */
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-import { app, BrowserWindow, ipcMain, Menu, powerMonitor } from 'electron';
+import {
+  app,
+  BrowserWindow,
+  Event,
+  ipcMain,
+  Menu,
+  powerMonitor,
+  Tray,
+} from 'electron';
 import activeWin from 'active-win';
 import AutoLaunch from 'auto-launch';
 import * as Sentry from '@sentry/electron';
+import path from 'path';
 // import { autoUpdater } from 'electron-updater';
 // import log from 'electron-log';
 // import MenuBuilder from './menu';
@@ -101,6 +110,14 @@ const createWindow = async () => {
     await installExtensions();
   }
 
+  const RESOURCES_PATH = app.isPackaged
+    ? path.join(process.resourcesPath, 'resources')
+    : path.join(__dirname, '../resources');
+
+  const getAssetPath = (...paths: string[]): string => {
+    return path.join(RESOURCES_PATH, ...paths);
+  };
+
   mainWindow = new BrowserWindow({
     show: false,
     width: 500,
@@ -177,6 +194,45 @@ const createWindow = async () => {
 
   mainWindow.on('closed', () => {
     mainWindow = null;
+  });
+
+  let isQuiting = false;
+
+  const tray = new Tray(getAssetPath('icon.png'));
+
+  tray.on('double-click', () => {
+    mainWindow?.show();
+  });
+  tray.setToolTip('Chronos');
+  tray.setContextMenu(
+    Menu.buildFromTemplate([
+      {
+        label: 'Show',
+        click: () => {
+          mainWindow?.show();
+        },
+      },
+      {
+        label: 'Quit',
+        click: () => {
+          isQuiting = true;
+          app.quit();
+        },
+      },
+    ])
+  );
+
+  mainWindow.on('close', (e: Event) => {
+    if (!isQuiting) {
+      e.preventDefault();
+
+      mainWindow?.hide();
+    }
+    return false;
+  });
+
+  mainWindow.on('restore', () => {
+    mainWindow?.show();
   });
 
   // const menuBuilder = new MenuBuilder(mainWindow);
