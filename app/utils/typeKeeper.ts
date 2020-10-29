@@ -23,9 +23,22 @@ export interface SettingsType {
 
 export interface SettingPreferenceType {
   launchAtBoot: boolean;
-  alertInfo: {
-    enabled: boolean;
+  isPomodoroEnabled: boolean;
+}
+
+export interface PomodoroTrackerType {
+  work: {
+    isActive: boolean;
+    iteration: number;
     limit: number;
+    totalTime: number;
+  };
+  break: {
+    isActive: boolean;
+    iteration: number;
+    limit: number;
+    longLimit: number;
+    totalTime: number;
   };
 }
 
@@ -33,6 +46,7 @@ export interface DailyProcessSessionType {
   [dateKey: string]: {
     processes: Array<ProcessType>;
     screenTime: number;
+    pomodoroTracker: PomodoroTrackerType;
   };
 }
 

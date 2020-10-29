@@ -6,15 +6,18 @@ import {
   ToggleDrawerVisibility,
   startApplicationAtBoot,
   shouldAppLaunchAtBoot,
+  enablePomodoroTracker,
+  isPomodoroEnabled,
 } from '../features/settings/settingsSlice';
 import CSS from './SettingsDrawer.css';
 
-type SettingKinds = 'LaunchSetting' | 'AlarmSetting';
+type SettingKinds = 'LaunchSetting' | 'PomodoroSetting';
 
 export default function SettingsDrawer() {
   const dispatch = useDispatch();
   const isOpen = useSelector(isDrawerOpen);
   const launchAtBoot = useSelector(shouldAppLaunchAtBoot);
+  const pomodoroEnabled = useSelector(isPomodoroEnabled);
 
   const handleSettingsPanelVisibilityViaClick = useCallback(() => {
     dispatch(ToggleDrawerVisibility());
@@ -29,8 +32,8 @@ export default function SettingsDrawer() {
   const handleLaunchStartupPreference = useCallback(
     (target: SettingKinds) => (event: React.ChangeEvent<HTMLInputElement>) => {
       switch (target) {
-        case 'AlarmSetting':
-          // console.log(event.target.checked);
+        case 'PomodoroSetting':
+          dispatch(enablePomodoroTracker(event.target.checked));
           break;
         case 'LaunchSetting':
           dispatch(startApplicationAtBoot(event.target.checked));
@@ -80,13 +83,14 @@ export default function SettingsDrawer() {
           className={`${CSS.settingsMenuItem} ${CSS.disableMenuItemSeperator}`}
         >
           <div className={CSS.settingsMenuContent}>
-            <span>Enable screen-time limit</span>
+            <span>Enable pomodoro tracker</span>
             <input
               type="checkbox"
               id="screenTimeLimit"
-              onChange={handleLaunchStartupPreference('AlarmSetting')}
+              onChange={handleLaunchStartupPreference('PomodoroSetting')}
+              defaultChecked={pomodoroEnabled}
             />
-            <label htmlFor="screenTimeLimit">Screen Time Limit</label>
+            <label htmlFor="screenTimeLimit">Enable omodoro tracker</label>
           </div>
         </div>
       </div>

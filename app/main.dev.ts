@@ -18,6 +18,7 @@ import {
   Menu,
   powerMonitor,
   Tray,
+  Notification,
 } from 'electron';
 import activeWin from 'active-win';
 import AutoLaunch from 'auto-launch';
@@ -185,6 +186,14 @@ const createWindow = async () => {
       .catch((err) => {
         console.log('Could not launch controller state information', err);
       });
+  });
+
+  ipcMain.on('generateNotification', (_, title, body) => {
+    new Notification({
+      title,
+      body,
+      icon: getAssetPath('icon.png'),
+    }).show();
   });
 
   mainWindow.on('closed', () => {

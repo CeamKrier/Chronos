@@ -5,6 +5,7 @@
   overflow-y: auto;
   height: calc(100vh - 7em);
   padding-top: 0.5em;
+  transition: all 0.2s ease-in;
 }
 
 .processCard {
