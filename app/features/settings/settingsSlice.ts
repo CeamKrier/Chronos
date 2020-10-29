@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import DataStore, {
   UpdateApplicationBootPreferenceInStorage,
+  UpdatePomodoroStateInStorage,
 } from '../../utils/electronStore';
 import { SettingsType } from '../../utils/typeKeeper';
 // eslint-disable-next-line import/no-cycle
@@ -17,10 +18,7 @@ const prepareInitialState = (): SettingsType => {
     isDrawerOpen: false,
     preferences: {
       launchAtBoot: true,
-      alertInfo: {
-        enabled: false,
-        limit: 0,
-      },
+      isPomodoroEnabled: false,
     },
   };
 };
@@ -39,6 +37,10 @@ const SettingsSlice = createSlice({
       state.preferences.launchAtBoot = action.payload;
       UpdateApplicationBootPreferenceInStorage(action.payload);
     },
+    enablePomodoroTracker: (state, action: PayloadAction<boolean>) => {
+      state.preferences.isPomodoroEnabled = action.payload;
+      UpdatePomodoroStateInStorage(action.payload);
+    },
   },
 });
 
@@ -46,6 +48,7 @@ export const {
   closeSettingsDrawer,
   openSettingsDrawer,
   startApplicationAtBoot,
+  enablePomodoroTracker,
 } = SettingsSlice.actions;
 
 export const ToggleDrawerVisibility = (): AppThunk => {
@@ -65,3 +68,6 @@ export const isDrawerOpen = (state: RootState) => state.settings.isDrawerOpen;
 
 export const shouldAppLaunchAtBoot = (state: RootState) =>
   state.settings.preferences.launchAtBoot;
+
+export const isPomodoroEnabled = (state: RootState) =>
+  state.settings.preferences.isPomodoroEnabled;

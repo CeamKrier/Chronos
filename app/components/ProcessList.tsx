@@ -7,14 +7,19 @@ import {
   allProcesses,
   totalScreenTime,
 } from '../features/observer/observerSlice';
+import { isPomodoroEnabled } from '../features/settings/settingsSlice';
 import CSS from './ProcessList.css';
 
 export default function ProcessList() {
   const processLog = useSelector(allProcesses);
   const screenTime = useSelector(totalScreenTime);
+  const pomodoroEnabled = useSelector(isPomodoroEnabled);
 
   return (
-    <div className={CSS.processListWrapper}>
+    <div
+      className={CSS.processListWrapper}
+      style={pomodoroEnabled ? { height: 'calc(100vh - 11em)' } : {}}
+    >
       {processLog.map((process) => {
         return (
           <div className={CSS.processCard} key={process.id}>

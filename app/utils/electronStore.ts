@@ -1,5 +1,10 @@
 import Store from 'electron-store';
-import { ProcessType, StoreType, SettingsType } from './typeKeeper';
+import {
+  ProcessType,
+  StoreType,
+  SettingsType,
+  DailyProcessSessionType,
+} from './typeKeeper';
 
 const config: {
   store: Store<StoreType> | undefined;
@@ -13,6 +18,18 @@ export default function GetStoreInstance() {
   }
   return config.store;
 }
+
+const getStoreData = (target: 'settings' | 'dailySessions') => {
+  if (!config.store?.get('settings')) {
+    config.store?.set('settings', <SettingsType>{
+      preferences: {
+        launchAtBoot: false,
+        isPomodoroEnabled: false,
+      },
+    });
+  }
+  return config.store?.get(target);
+};
 
 export const AddNewProcessToStorage = (key: string, payload: ProcessType) => {
   const oldSession = config.store?.get('dailySessions')[key];
@@ -56,19 +73,61 @@ export const UpdateProcessIdleTimeInStorage = (
 export const UpdateApplicationBootPreferenceInStorage = (
   shouldLaunchAtBoot: boolean
 ) => {
-  const oldSession = config.store?.get('settings');
-  if (!oldSession) {
-    config.store?.set('settings', <SettingsType>{
-      preferences: {
-        launchAtBoot: false,
-        alertInfo: {
-          enabled: false,
-          limit: 0,
-        },
-      },
-    });
-    return;
-  }
+  const oldSession = getStoreData('settings') as SettingsType;
   oldSession.preferences.launchAtBoot = shouldLaunchAtBoot;
   config.store?.set('settings', oldSession);
+};
+
+export const UpdatePomodoroStateInStorage = (isPomodoroEnabled: boolean) => {
+  const oldSession = getStoreData('settings') as SettingsType;
+  oldSession.preferences.isPomodoroEnabled = isPomodoroEnabled;
+  config.store?.set('settings', oldSession);
+};
+
+export const UpdatePomodoroWorkLimit = (
+  key: string,
+  pomodoroWorkLimit: number
+) => {
+  const oldSession = getStoreData('dailySessions') as DailyProcessSessionType;
+  oldSession[key].pomodoroTracker.work.limit = pomodoroWorkLimit;
+  config.store?.set(`dailySessions.${key}`, oldSession[key]);
+};
+
+export const UpdatePomodoroBreakLimit = (
+  key: string,
+  pomodoroBreakLimit: number
+) => {
+  const oldSession = getStoreData('dailySessions') as DailyProcessSessionType;
+  oldSession[key].pomodoroTracker.break.limit = pomodoroBreakLimit;
+  config.store?.set(`dailySessions.${key}`, oldSession[key]);
+};
+
+export const UpdatePomodoroTotalWorkTime = (
+  key: string,
+  isIteration: boolean
+) => {
+  const oldSession = getStoreData('dailySessions') as DailyProcessSessionType;
+  oldSession[key].pomodoroTracker.work.totalTime += 1;
+  if (isIteration) {
+    oldSession[key].pomodoroTracker.work.iteration += 1;
+    oldSession[key].pomodoroTracker.work.isActive = false;
+    oldSession[key].pomodoroTracker.break.isActive = true;
+    oldSession[key].pomodoroTracker.work.totalTime = 0;
+  }
+  config.store?.set(`dailySessions.${key}`, oldSession[key]);
+};
+
+export const UpdatePomodoroTotalBreakTime = (
+  key: string,
+  isIteration: boolean
+) => {
+  const oldSession = getStoreData('dailySessions') as DailyProcessSessionType;
+  oldSession[key].pomodoroTracker.break.totalTime += 1;
+  if (isIteration) {
+    oldSession[key].pomodoroTracker.break.iteration += 1;
+    oldSession[key].pomodoroTracker.work.isActive = true;
+    oldSession[key].pomodoroTracker.break.isActive = false;
+    oldSession[key].pomodoroTracker.break.totalTime = 0;
+  }
+  config.store?.set(`dailySessions.${key}`, oldSession[key]);
 };
