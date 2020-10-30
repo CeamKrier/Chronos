@@ -55,8 +55,26 @@ const prepareInitialState = () => {
     });
   }
   const todaysSession = sessions && sessions[date];
-  if (todaysSession) {
-    return { ...todaysSession };
+  if (!todaysSession) {
+    Storage.set(`dailySessions.${date}`, {
+      pomodoroTracker: {
+        work: {
+          isActive: true,
+          iteration: 0,
+          limit: 1500,
+          totalTime: 0,
+        },
+        break: {
+          isActive: false,
+          iteration: 0,
+          limit: 300,
+          longLimit: 1500,
+          totalTime: 0,
+        },
+      },
+      screenTime: 0,
+      processes: [],
+    });
   }
   return Storage.get('dailySessions')[date];
 };
