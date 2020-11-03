@@ -1,11 +1,12 @@
 .headerWrapper {
-  width: 100vw;
+  position: relative;
   height: 3.5em;
   display: flex;
   justify-content: center;
   align-items: center;
   padding-bottom: 0.5em;
   border-bottom: 2px solid #3c3c3c;
+  background: #232c39;
 }
 
 .sessionInformationSection {

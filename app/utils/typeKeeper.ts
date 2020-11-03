@@ -54,3 +54,11 @@ export interface StoreType {
   dailySessions: DailyProcessSessionType;
   settings: SettingsType;
 }
+
+export interface ConfirmationDialogTypes {
+  isDialogOpen?: boolean;
+  title: string;
+  message: string;
+  actionType: 'info' | 'question' | 'warning';
+  dialogConfirmedOrRejected?: boolean | undefined;
+}
