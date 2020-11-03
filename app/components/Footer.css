@@ -1,9 +1,8 @@
 .footerWrapper {
-  height: 3em;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 0.5em;
+  padding-top: 0.3em;
   border-top: 2px solid #3c3c3c;
 }
 
@@ -12,6 +11,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 7em;
+  height: 3em;
 }
 
 .pomodoroCountdown {
@@ -34,4 +35,34 @@
   flex-direction: column;
   align-items: center;
   font-size: 15px;
+}
+
+.pomodoroActionsWrapper {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 7em;
+  height: 3em;
+  background-color: #232c39;
+  opacity: 0;
+  visibility: hidden;
+  transition: all ease 0.5s;
+}
+
+.pomodoroActionItem {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.pomodoroActionItem:hover {
+  opacity: 0.5;
+}
+
+.footerMainColumn:hover .pomodoroActionsWrapper {
+  opacity: 1;
+  visibility: visible;
 }
