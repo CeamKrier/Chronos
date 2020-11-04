@@ -20,6 +20,8 @@ export default function Footer(): JSX.Element {
   const currentPomodoroIteration = useSelector(getCurrentIteration);
   const userResponseToDialog = useSelector(dialogConfirmedOrRejected);
 
+  const isWorkIteration = currentPomodoroIteration.type === 'work';
+
   useEffect(() => {
     if (userResponseToDialog) {
       // reset the current pomodoro counter
@@ -32,11 +34,11 @@ export default function Footer(): JSX.Element {
     dispatch(
       showDialog({
         actionType: 'question',
-        message: 'Are you sure you want to reset your break-time?',
-        title: 'Reset break-time',
+        message: `Are you sure you want to reset your ${currentPomodoroIteration.type}-time?`,
+        title: `Reset ${currentPomodoroIteration.type}-time`,
       })
     );
-  }, [dispatch]);
+  }, [dispatch, currentPomodoroIteration.type]);
 
   const handlePomodoroCounterResetViaKey = useCallback(() => {
     dispatch(
@@ -47,8 +49,6 @@ export default function Footer(): JSX.Element {
       })
     );
   }, [dispatch]);
-
-  const isWorkIteration = currentPomodoroIteration.type === 'work';
 
   return (
     <div className={CSS.footerWrapper}>
