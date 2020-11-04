@@ -7,6 +7,7 @@ import { ProcessType } from '../utils/typeKeeper';
 // import routes from '../constants/routes.json';
 import ProcessList from './ProcessList';
 import SummaryHeader, { StartObserver, StopObserver } from './SummaryHeader';
+import ConfirmationDialog from './ConfirmationDialog';
 import SettingsDrawer from './SettingsDrawer';
 import Footer from './Footer';
 import CSS from './Home.css';
@@ -35,6 +36,8 @@ export default function Home(): JSX.Element {
 
   const renderProcessList = useMemo(() => <ProcessList />, []);
 
+  const renderConfirmationDialog = useMemo(() => <ConfirmationDialog />, []);
+
   const renderSummaryHeader = useMemo(() => <SummaryHeader />, []);
 
   const renderSettingsDrawer = useMemo(() => <SettingsDrawer />, []);
@@ -43,6 +46,7 @@ export default function Home(): JSX.Element {
 
   return (
     <div className={CSS.container}>
+      {renderConfirmationDialog}
       {renderSummaryHeader}
       {/* <Link to={routes.COUNTER}>to Counter</Link> */}
       {renderSettingsDrawer}

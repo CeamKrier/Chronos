@@ -189,6 +189,15 @@ const observerSlice = createSlice({
       }
       UpdatePomodoroTotalBreakTime(date, isIteration);
     },
+    resetPomodoroCounter: (state) => {
+      if (state.pomodoroTracker.break.isActive) {
+        state.pomodoroTracker.break.totalTime = 0;
+        UpdatePomodoroTotalBreakTime(date, false, true);
+      } else {
+        state.pomodoroTracker.work.totalTime = 0;
+        UpdatePomodoroTotalWorkTime(date, false, true);
+      }
+    },
   },
 });
 
@@ -200,6 +209,7 @@ export const {
   incrementPomodoroWorkTimeByOneSecond,
   setPomodoroBreakLimit,
   setPomodoroWorkLimit,
+  resetPomodoroCounter,
 } = observerSlice.actions;
 
 export const observeProcess = (incomingProcess: ProcessType): AppThunk => {

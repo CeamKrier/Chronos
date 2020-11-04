@@ -104,7 +104,8 @@ export const UpdatePomodoroBreakLimit = (
 
 export const UpdatePomodoroTotalWorkTime = (
   key: string,
-  isIteration: boolean
+  isIteration: boolean,
+  reset?: boolean
 ) => {
   const oldSession = getStoreData('dailySessions') as DailyProcessSessionType;
   oldSession[key].pomodoroTracker.work.totalTime += 1;
@@ -114,12 +115,16 @@ export const UpdatePomodoroTotalWorkTime = (
     oldSession[key].pomodoroTracker.break.isActive = true;
     oldSession[key].pomodoroTracker.work.totalTime = 0;
   }
+  if (reset) {
+    oldSession[key].pomodoroTracker.work.totalTime = 0;
+  }
   config.store?.set(`dailySessions.${key}`, oldSession[key]);
 };
 
 export const UpdatePomodoroTotalBreakTime = (
   key: string,
-  isIteration: boolean
+  isIteration: boolean,
+  reset?: boolean
 ) => {
   const oldSession = getStoreData('dailySessions') as DailyProcessSessionType;
   oldSession[key].pomodoroTracker.break.totalTime += 1;
@@ -127,6 +132,9 @@ export const UpdatePomodoroTotalBreakTime = (
     oldSession[key].pomodoroTracker.break.iteration += 1;
     oldSession[key].pomodoroTracker.work.isActive = true;
     oldSession[key].pomodoroTracker.break.isActive = false;
+    oldSession[key].pomodoroTracker.break.totalTime = 0;
+  }
+  if (reset) {
     oldSession[key].pomodoroTracker.break.totalTime = 0;
   }
   config.store?.set(`dailySessions.${key}`, oldSession[key]);
