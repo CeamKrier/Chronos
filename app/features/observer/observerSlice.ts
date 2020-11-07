@@ -32,31 +32,12 @@ const prepareInitialState = () => {
         isPomodoroEnabled: false,
       },
     });
+
+    Storage.set('dailySessions', <DailyProcessSessionType>{});
   }
-  if (!sessions[date]) {
-    Storage.set('dailySessions', <DailyProcessSessionType>{
-      [date]: {
-        pomodoroTracker: {
-          work: {
-            isActive: true,
-            iteration: 0,
-            limit: 1500,
-            totalTime: 0,
-          },
-          break: {
-            isActive: false,
-            iteration: 0,
-            limit: 300,
-            longLimit: 1500,
-            totalTime: 0,
-          },
-        },
-        screenTime: 0,
-        processes: [],
-      },
-    });
-  }
+
   const todaysSession = sessions && sessions[date];
+
   if (!todaysSession) {
     Storage.set(`dailySessions.${date}`, {
       pomodoroTracker: {
