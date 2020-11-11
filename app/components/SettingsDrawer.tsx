@@ -9,6 +9,10 @@ import {
   enablePomodoroTracker,
   isPomodoroEnabled,
 } from '../features/settings/settingsSlice';
+import {
+  setPomodoroBreakLimit,
+  setPomodoroWorkLimit,
+} from '../features/observer/observerSlice';
 import CSS from './SettingsDrawer.css';
 
 type SettingKinds = 'LaunchSetting' | 'PomodoroSetting';
@@ -90,7 +94,62 @@ export default function SettingsDrawer() {
               onChange={handleLaunchStartupPreference('PomodoroSetting')}
               defaultChecked={pomodoroEnabled}
             />
-            <label htmlFor="screenTimeLimit">Enable omodoro tracker</label>
+            <label htmlFor="screenTimeLimit">Enable pomodoro tracker</label>
+          </div>
+          <div
+            className={CSS.pomodoroSettingsWrapper}
+            style={pomodoroEnabled ? {} : { display: 'none' }}
+          >
+            <div className={CSS.pomodoroSettingRow}>
+              <div className={CSS.pomodoroSettingIndicator} />
+              <div className={CSS.pomodoroSettingContent}>
+                Work Duration:
+                <div className={CSS.pomodoroRangeWrapper}>
+                  <input
+                    type="range"
+                    id="workDuration"
+                    min="25"
+                    max="60"
+                    step="5"
+                  />
+                  25 min
+                </div>
+              </div>
+            </div>
+
+            <div className={CSS.pomodoroSettingRow}>
+              <div className={CSS.pomodoroSettingIndicator} />
+              <div className={CSS.pomodoroSettingContent}>
+                Short Break Duration:
+                <div className={CSS.pomodoroRangeWrapper}>
+                  <input
+                    type="range"
+                    id="shortBreakDuration"
+                    min="5"
+                    max="15"
+                    step="5"
+                  />
+                  10 min
+                </div>
+              </div>
+            </div>
+
+            <div className={CSS.pomodoroSettingRow}>
+              <div className={CSS.pomodoroSettingIndicator} />
+              <div className={CSS.pomodoroSettingContent}>
+                Long Break Duration:
+                <div className={CSS.pomodoroRangeWrapper}>
+                  <input
+                    type="range"
+                    id="longBreakDuration"
+                    min="25"
+                    max="60"
+                    step="5"
+                  />
+                  25 min
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
