@@ -17,7 +17,7 @@ import {
   pomodoroWorkLimit,
 } from '../features/observer/observerSlice';
 
-import { debounce } from '../helpers/eventHelper';
+import debounce from '../helpers/eventHelper';
 
 import CSS from './SettingsDrawer.css';
 

@@ -15,6 +15,4 @@ const debounce = (callback: (...args: any) => void, wait: number) => {
   };
 };
 
-module.exports = {
-  debounce,
-};
+export default debounce;
