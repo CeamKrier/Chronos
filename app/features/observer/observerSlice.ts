@@ -125,9 +125,14 @@ const observerSlice = createSlice({
       state.pomodoroTracker.work.limit = action.payload;
       UpdatePomodoroWorkLimit(date, action.payload);
     },
-    setPomodoroBreakLimit: (state, action: PayloadAction<number>) => {
-      state.pomodoroTracker.break.limit = action.payload;
-      UpdatePomodoroBreakLimit(date, action.payload);
+    setPomodoroBreakLimit: (
+      state,
+      action: PayloadAction<{ type: 'longBreak' | 'shortBreak'; limit: number }>
+    ) => {
+      state.pomodoroTracker.break[
+        action.payload.type === 'longBreak' ? 'longLimit' : 'limit'
+      ] = action.payload.limit;
+      UpdatePomodoroBreakLimit(date, action.payload.limit, action.payload.type);
     },
     incrementPomodoroWorkTimeByOneSecond: (state) => {
       const totalTime = state.pomodoroTracker.work.totalTime + 1;
@@ -259,3 +264,12 @@ export const getCurrentIteration = (state: RootState) => {
     totalTime: state.observer.pomodoroTracker[workOrBreak].totalTime,
   };
 };
+
+export const pomodoroWorkLimit = (state: RootState) =>
+  state.observer.pomodoroTracker.work.limit;
+
+export const pomodoroShortBreakLimit = (state: RootState) =>
+  state.observer.pomodoroTracker.break.limit;
+
+export const pomodoroLongBreakLimit = (state: RootState) =>
+  state.observer.pomodoroTracker.break.longLimit;
