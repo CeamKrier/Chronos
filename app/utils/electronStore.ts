@@ -95,11 +95,17 @@ export const UpdatePomodoroWorkLimit = (
 
 export const UpdatePomodoroBreakLimit = (
   key: string,
-  pomodoroBreakLimit: number
+  pomodoroBreakLimit: number,
+  type: 'longBreak' | 'shortBreak'
 ) => {
   const oldSession = getStoreData('dailySessions') as DailyProcessSessionType;
-  oldSession[key].pomodoroTracker.break.limit = pomodoroBreakLimit;
-  config.store?.set(`dailySessions.${key}`, oldSession[key]);
+  oldSession[key].pomodoroTracker.break[
+    type === 'longBreak' ? 'longLimit' : 'limit'
+  ] = pomodoroBreakLimit;
+  config.store?.set(
+    `dailySessions.${key}.pomodoroTracker.break`,
+    oldSession[key].pomodoroTracker.break
+  );
 };
 
 export const UpdatePomodoroTotalWorkTime = (

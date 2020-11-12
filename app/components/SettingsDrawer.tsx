@@ -12,7 +12,13 @@ import {
 import {
   setPomodoroBreakLimit,
   setPomodoroWorkLimit,
+  pomodoroLongBreakLimit,
+  pomodoroShortBreakLimit,
+  pomodoroWorkLimit,
 } from '../features/observer/observerSlice';
+
+import { debounce } from '../helpers/eventHelper';
+
 import CSS from './SettingsDrawer.css';
 
 type SettingKinds = 'LaunchSetting' | 'PomodoroSetting';
@@ -22,6 +28,10 @@ export default function SettingsDrawer() {
   const isOpen = useSelector(isDrawerOpen);
   const launchAtBoot = useSelector(shouldAppLaunchAtBoot);
   const pomodoroEnabled = useSelector(isPomodoroEnabled);
+
+  const pmdrWorkLimit = useSelector(pomodoroWorkLimit);
+  const pmdrShortBreakLimit = useSelector(pomodoroShortBreakLimit);
+  const pmdrLongBreakLimit = useSelector(pomodoroLongBreakLimit);
 
   const handleSettingsPanelVisibilityViaClick = useCallback(() => {
     dispatch(ToggleDrawerVisibility());
@@ -45,6 +55,24 @@ export default function SettingsDrawer() {
           break;
         default:
           break;
+      }
+    },
+    [dispatch]
+  );
+
+  const handlePomodoroLimitChange = useCallback(
+    (target: 'work' | 'shortBreak' | 'longBreak') => (
+      event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+      if (target === 'work') {
+        dispatch(setPomodoroWorkLimit(+event.target.value * 60));
+      } else {
+        dispatch(
+          setPomodoroBreakLimit({
+            limit: +event.target.value * 60,
+            type: target,
+          })
+        );
       }
     },
     [dispatch]
@@ -83,6 +111,7 @@ export default function SettingsDrawer() {
             <label htmlFor="appLaunch">Toggle App Launch</label>
           </div>
         </div>
+
         <div
           className={`${CSS.settingsMenuItem} ${CSS.disableMenuItemSeperator}`}
         >
@@ -96,9 +125,10 @@ export default function SettingsDrawer() {
             />
             <label htmlFor="screenTimeLimit">Enable pomodoro tracker</label>
           </div>
+
           <div
             className={CSS.pomodoroSettingsWrapper}
-            style={pomodoroEnabled ? {} : { display: 'none' }}
+            style={pomodoroEnabled ? { opacity: 1 } : { opacity: 0 }}
           >
             <div className={CSS.pomodoroSettingRow}>
               <div className={CSS.pomodoroSettingIndicator} />
@@ -109,10 +139,12 @@ export default function SettingsDrawer() {
                     type="range"
                     id="workDuration"
                     min="25"
-                    max="60"
+                    max="50"
                     step="5"
+                    defaultValue={pmdrWorkLimit / 60}
+                    onChange={debounce(handlePomodoroLimitChange('work'), 500)}
                   />
-                  25 min
+                  {`${pmdrWorkLimit / 60} min`}
                 </div>
               </div>
             </div>
@@ -128,8 +160,13 @@ export default function SettingsDrawer() {
                     min="5"
                     max="15"
                     step="5"
+                    defaultValue={pmdrShortBreakLimit / 60}
+                    onChange={debounce(
+                      handlePomodoroLimitChange('shortBreak'),
+                      500
+                    )}
                   />
-                  10 min
+                  {`${pmdrShortBreakLimit / 60} min`}
                 </div>
               </div>
             </div>
@@ -143,10 +180,15 @@ export default function SettingsDrawer() {
                     type="range"
                     id="longBreakDuration"
                     min="25"
-                    max="60"
+                    max="50"
                     step="5"
+                    defaultValue={pmdrLongBreakLimit / 60}
+                    onChange={debounce(
+                      handlePomodoroLimitChange('longBreak'),
+                      500
+                    )}
                   />
-                  25 min
+                  {`${pmdrLongBreakLimit / 60} min`}
                 </div>
               </div>
             </div>
