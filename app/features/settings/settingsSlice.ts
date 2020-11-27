@@ -2,6 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import DataStore, {
   UpdateApplicationBootPreferenceInStorage,
   UpdatePomodoroStateInStorage,
+  UpdatePomodoroBreakLimit,
+  UpdatePomodoroWorkLimit,
 } from '../../utils/electronStore';
 import { SettingsType } from '../../utils/typeKeeper';
 // eslint-disable-next-line import/no-cycle
@@ -11,16 +13,19 @@ const Storage = DataStore();
 
 const prepareInitialState = (): SettingsType => {
   const applicationSettings = Storage.get('settings');
-  if (applicationSettings) {
-    return { isDrawerOpen: false, ...applicationSettings };
+  if (!applicationSettings) {
+    return {
+      isDrawerOpen: false,
+      preferences: {
+        launchAtBoot: true,
+        isPomodoroEnabled: false,
+        pomodoroWorkLimit: 1500,
+        pomodoroBreakLimit: 300,
+        pomodoroLongBreakLimit: 1500,
+      },
+    };
   }
-  return {
-    isDrawerOpen: false,
-    preferences: {
-      launchAtBoot: true,
-      isPomodoroEnabled: false,
-    },
-  };
+  return { isDrawerOpen: false, ...applicationSettings };
 };
 
 const SettingsSlice = createSlice({
@@ -41,6 +46,21 @@ const SettingsSlice = createSlice({
       state.preferences.isPomodoroEnabled = action.payload;
       UpdatePomodoroStateInStorage(action.payload);
     },
+    setPomodoroWorkLimit: (state, action: PayloadAction<number>) => {
+      state.preferences.pomodoroWorkLimit = action.payload;
+      UpdatePomodoroWorkLimit(action.payload);
+    },
+    setPomodoroBreakLimit: (
+      state,
+      action: PayloadAction<{ type: 'longBreak' | 'shortBreak'; limit: number }>
+    ) => {
+      state.preferences[
+        action.payload.type === 'longBreak'
+          ? 'pomodoroLongBreakLimit'
+          : 'pomodoroBreakLimit'
+      ] = action.payload.limit;
+      UpdatePomodoroBreakLimit(action.payload.limit, action.payload.type);
+    },
   },
 });
 
@@ -49,6 +69,8 @@ export const {
   openSettingsDrawer,
   startApplicationAtBoot,
   enablePomodoroTracker,
+  setPomodoroBreakLimit,
+  setPomodoroWorkLimit,
 } = SettingsSlice.actions;
 
 export const ToggleDrawerVisibility = (): AppThunk => {

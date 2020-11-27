@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ipcRenderer } from 'electron';
 import {
   isDrawerOpen,
+  setPomodoroBreakLimit,
+  setPomodoroWorkLimit,
   ToggleDrawerVisibility,
   startApplicationAtBoot,
   shouldAppLaunchAtBoot,
@@ -10,8 +12,6 @@ import {
   isPomodoroEnabled,
 } from '../features/settings/settingsSlice';
 import {
-  setPomodoroBreakLimit,
-  setPomodoroWorkLimit,
   pomodoroLongBreakLimit,
   pomodoroShortBreakLimit,
   pomodoroWorkLimit,

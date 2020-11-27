@@ -84,28 +84,21 @@ export const UpdatePomodoroStateInStorage = (isPomodoroEnabled: boolean) => {
   config.store?.set('settings', oldSession);
 };
 
-export const UpdatePomodoroWorkLimit = (
-  key: string,
-  pomodoroWorkLimit: number
-) => {
-  const oldSession = getStoreData('dailySessions') as DailyProcessSessionType;
-  oldSession[key].pomodoroTracker.work.limit = pomodoroWorkLimit;
-  config.store?.set(`dailySessions.${key}`, oldSession[key]);
+export const UpdatePomodoroWorkLimit = (pomodoroWorkLimit: number) => {
+  const oldSession = getStoreData('settings') as SettingsType;
+  oldSession.preferences.pomodoroWorkLimit = pomodoroWorkLimit;
+  config.store?.set('settings', oldSession);
 };
 
 export const UpdatePomodoroBreakLimit = (
-  key: string,
   pomodoroBreakLimit: number,
   type: 'longBreak' | 'shortBreak'
 ) => {
-  const oldSession = getStoreData('dailySessions') as DailyProcessSessionType;
-  oldSession[key].pomodoroTracker.break[
-    type === 'longBreak' ? 'longLimit' : 'limit'
+  const oldSession = getStoreData('settings') as SettingsType;
+  oldSession.preferences[
+    type === 'longBreak' ? 'pomodoroLongBreakLimit' : 'pomodoroBreakLimit'
   ] = pomodoroBreakLimit;
-  config.store?.set(
-    `dailySessions.${key}.pomodoroTracker.break`,
-    oldSession[key].pomodoroTracker.break
-  );
+  config.store?.set('settings', oldSession);
 };
 
 export const UpdatePomodoroTotalWorkTime = (

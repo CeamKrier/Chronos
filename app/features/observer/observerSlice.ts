@@ -4,8 +4,6 @@ import DataStore, {
   AddNewProcessToStorage,
   UpdateProcessIdleTimeInStorage,
   UpdateProcessUsageTimeInStorage,
-  UpdatePomodoroBreakLimit,
-  UpdatePomodoroWorkLimit,
   UpdatePomodoroTotalWorkTime,
   UpdatePomodoroTotalBreakTime,
 } from '../../utils/electronStore';
@@ -15,6 +13,7 @@ import {
   ProcessType,
   SettingsType,
   DailyProcessSessionType,
+  SettingPreferenceType,
 } from '../../utils/typeKeeper';
 
 const Storage = DataStore();
@@ -30,6 +29,9 @@ const prepareInitialState = () => {
       preferences: {
         launchAtBoot: true,
         isPomodoroEnabled: false,
+        pomodoroWorkLimit: 1500,
+        pomodoroBreakLimit: 300,
+        pomodoroLongBreakLimit: 1500,
       },
     });
 
@@ -44,14 +46,11 @@ const prepareInitialState = () => {
         work: {
           isActive: true,
           iteration: 0,
-          limit: 1500,
           totalTime: 0,
         },
         break: {
           isActive: false,
           iteration: 0,
-          limit: 300,
-          longLimit: 1500,
           totalTime: 0,
         },
       },
@@ -121,26 +120,16 @@ const observerSlice = createSlice({
         idleTime: state.processes[action.payload].idleTime,
       });
     },
-    setPomodoroWorkLimit: (state, action: PayloadAction<number>) => {
-      state.pomodoroTracker.work.limit = action.payload;
-      UpdatePomodoroWorkLimit(date, action.payload);
-    },
-    setPomodoroBreakLimit: (
+    incrementPomodoroWorkTimeByOneSecond: (
       state,
-      action: PayloadAction<{ type: 'longBreak' | 'shortBreak'; limit: number }>
+      action: PayloadAction<SettingPreferenceType>
     ) => {
-      state.pomodoroTracker.break[
-        action.payload.type === 'longBreak' ? 'longLimit' : 'limit'
-      ] = action.payload.limit;
-      UpdatePomodoroBreakLimit(date, action.payload.limit, action.payload.type);
-    },
-    incrementPomodoroWorkTimeByOneSecond: (state) => {
       const totalTime = state.pomodoroTracker.work.totalTime + 1;
       state.pomodoroTracker.work.totalTime = totalTime;
       let isIteration = false;
       const isLongBreak = (state.pomodoroTracker.work.iteration + 1) % 4 === 0;
 
-      if (totalTime % state.pomodoroTracker.work.limit === 0) {
+      if (totalTime % action.payload.pomodoroWorkLimit === 0) {
         state.pomodoroTracker.work.iteration += 1;
         state.pomodoroTracker.work.isActive = false;
         state.pomodoroTracker.break.isActive = true;
@@ -154,14 +143,19 @@ const observerSlice = createSlice({
       }
       UpdatePomodoroTotalWorkTime(date, isIteration);
     },
-    incrementPomodoroBreakTimeByOneSecond: (state) => {
+    incrementPomodoroBreakTimeByOneSecond: (
+      state,
+      action: PayloadAction<SettingPreferenceType>
+    ) => {
       const totalTime = state.pomodoroTracker.break.totalTime + 1;
       state.pomodoroTracker.break.totalTime = totalTime;
       let isIteration = false;
       const isLongBreak = state.pomodoroTracker.work.iteration % 4 === 0;
       if (
         totalTime %
-          state.pomodoroTracker.break[isLongBreak ? 'longLimit' : 'limit'] ===
+          action.payload[
+            isLongBreak ? 'pomodoroLongBreakLimit' : 'pomodoroBreakLimit'
+          ] ===
         0
       ) {
         state.pomodoroTracker.break.iteration += 1;
@@ -195,8 +189,6 @@ export const {
   incrementProcessIdleTimeByOneSecond,
   incrementPomodoroBreakTimeByOneSecond,
   incrementPomodoroWorkTimeByOneSecond,
-  setPomodoroBreakLimit,
-  setPomodoroWorkLimit,
   resetPomodoroCounter,
 } = observerSlice.actions;
 
@@ -206,9 +198,13 @@ export const observeProcess = (incomingProcess: ProcessType): AppThunk => {
 
     if (state.settings.preferences.isPomodoroEnabled) {
       if (state.observer.pomodoroTracker.break.isActive) {
-        dispatch(incrementPomodoroBreakTimeByOneSecond());
+        dispatch(
+          incrementPomodoroBreakTimeByOneSecond(state.settings.preferences)
+        );
       } else {
-        dispatch(incrementPomodoroWorkTimeByOneSecond());
+        dispatch(
+          incrementPomodoroWorkTimeByOneSecond(state.settings.preferences)
+        );
       }
     }
     const processStateIndex = state.observer.processes.findIndex(
@@ -252,9 +248,12 @@ export const getCurrentIteration = (state: RootState) => {
     workOrBreak = 'break';
     isLongBreak = state.observer.pomodoroTracker.work.iteration % 4 === 0;
   }
-  let adjustedLimit = state.observer.pomodoroTracker[workOrBreak].limit;
+  let adjustedLimit =
+    state.settings.preferences[
+      workOrBreak === 'work' ? 'pomodoroWorkLimit' : 'pomodoroBreakLimit'
+    ];
   if (isLongBreak) {
-    adjustedLimit = state.observer.pomodoroTracker.break.longLimit;
+    adjustedLimit = state.settings.preferences.pomodoroLongBreakLimit;
   }
   return {
     type: workOrBreak,
@@ -266,10 +265,10 @@ export const getCurrentIteration = (state: RootState) => {
 };
 
 export const pomodoroWorkLimit = (state: RootState) =>
-  state.observer.pomodoroTracker.work.limit;
+  state.settings.preferences.pomodoroWorkLimit;
 
 export const pomodoroShortBreakLimit = (state: RootState) =>
-  state.observer.pomodoroTracker.break.limit;
+  state.settings.preferences.pomodoroBreakLimit;
 
 export const pomodoroLongBreakLimit = (state: RootState) =>
-  state.observer.pomodoroTracker.break.longLimit;
+  state.settings.preferences.pomodoroLongBreakLimit;
