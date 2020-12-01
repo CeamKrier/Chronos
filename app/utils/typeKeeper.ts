@@ -24,20 +24,20 @@ export interface SettingsType {
 export interface SettingPreferenceType {
   launchAtBoot: boolean;
   isPomodoroEnabled: boolean;
+  pomodoroWorkLimit: number;
+  pomodoroBreakLimit: number;
+  pomodoroLongBreakLimit: number;
 }
 
 export interface PomodoroTrackerType {
   work: {
     isActive: boolean;
     iteration: number;
-    limit: number;
     totalTime: number;
   };
   break: {
     isActive: boolean;
     iteration: number;
-    limit: number;
-    longLimit: number;
     totalTime: number;
   };
 }

@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ipcRenderer } from 'electron';
 import {
   isDrawerOpen,
+  setPomodoroBreakLimit,
+  setPomodoroWorkLimit,
   ToggleDrawerVisibility,
   startApplicationAtBoot,
   shouldAppLaunchAtBoot,
@@ -10,14 +12,12 @@ import {
   isPomodoroEnabled,
 } from '../features/settings/settingsSlice';
 import {
-  setPomodoroBreakLimit,
-  setPomodoroWorkLimit,
   pomodoroLongBreakLimit,
   pomodoroShortBreakLimit,
   pomodoroWorkLimit,
 } from '../features/observer/observerSlice';
 
-import { debounce } from '../helpers/eventHelper';
+import debounce from '../helpers/eventHelper';
 
 import CSS from './SettingsDrawer.css';
 
