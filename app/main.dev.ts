@@ -10,6 +10,7 @@
  */
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
+import dotenv from 'dotenv';
 import {
   app,
   BrowserWindow,
@@ -28,11 +29,11 @@ import path from 'path';
 // import log from 'electron-log';
 // import MenuBuilder from './menu';
 
+dotenv.config();
 const desktopIdle = require('desktop-idle');
 
 Sentry.init({
-  dsn:
-    'https://d032dacd11e34cf584a4bacbe4e45c17@o457231.ingest.sentry.io/5452877',
+  dsn: process.env.SENTRY_IO_DNS,
 });
 
 const launchController = new AutoLaunch({

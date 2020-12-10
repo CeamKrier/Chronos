@@ -15,3 +15,20 @@
     - **_MacOS_**:
     - **_Linux_**:
 - **Historical Session Analitics: (WIP)** Analyze your average screen-time, most used process etc.
+
+## Development
+
+```javascript
+# install dependencies
+yarn
+
+# start dev environment
+yarn dev
+
+# pack the application to release
+yarn package
+```
+
+## License
+
+[MIT](https://github.com/mrgodhani/rss-reader/blob/master/LICENSE)
