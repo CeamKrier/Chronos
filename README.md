@@ -4,6 +4,8 @@
 
 #### A desktop application that tracks screen time/idle time of used processes
 
+[VirusTotal Scan Results](https://www.virustotal.com/gui/file/146cc13ff6497f767ac0b316e48b13615715db772538dbc4dd435f9c09171e66/detection)
+
 ## Features 🎨
 
 - **Process Tracking**: Retrieve process information and details about their idle / usage time
