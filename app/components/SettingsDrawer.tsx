@@ -194,6 +194,10 @@ export default function SettingsDrawer() {
             </div>
           </div>
         </div>
+        <div className={CSS.appInfo}>
+          <span>Chronos</span>
+          <span>v0.0.1 Beta</span>
+        </div>
       </div>
     </div>
   );

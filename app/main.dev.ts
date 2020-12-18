@@ -123,11 +123,11 @@ const createWindow = async () => {
   mainWindow = new BrowserWindow({
     show: false,
     width: 500,
-    maxWidth: 800,
+    maxWidth: 500,
     minWidth: 500,
     height: 650,
     minHeight: 650,
-    maxHeight: 800,
+    maxHeight: 650,
     frame: false,
     webPreferences: {
       nodeIntegration: true,

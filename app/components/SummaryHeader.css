@@ -46,6 +46,11 @@
   transition: 0.5s;
 }
 
+.startStopSection svg:hover,
+.settingsSection svg:hover {
+  cursor: pointer;
+}
+
 .settingsSection:hover,
 .startStopSection:hover {
   opacity: 0.5;
@@ -57,7 +62,6 @@
   display: flex;
   flex-direction: column;
   width: 65vw;
-  margin-right: 1em;
 }
 
 .scaleBarSectionTitleWrapper {
