@@ -21,6 +21,8 @@ export default function ProcessList() {
       style={pomodoroEnabled ? { height: 'calc(100vh - 11em)' } : {}}
     >
       {processLog.map((process) => {
+        const isProcessNameTooLong = process.owner.name.length > 15;
+
         return (
           <div className={CSS.processCard} key={process.id}>
             <div className={CSS.processCardBody}>
@@ -29,8 +31,11 @@ export default function ProcessList() {
                 style={{ background: StringToColor(process.owner.name) }}
               />
               <div className={CSS.processCardBodyColumn}>
-                <span className={CSS.processName}>
-                  {process.owner.name.length > 15
+                <span
+                  title={isProcessNameTooLong ? process.owner.name : undefined}
+                  className={CSS.processName}
+                >
+                  {isProcessNameTooLong
                     ? `${process.owner.name.substring(0, 15)}..`
                     : process.owner.name}
                 </span>
