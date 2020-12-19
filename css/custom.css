@@ -1,0 +1,1110 @@
+/* ----------------------------------------------------------------------------------------
+* Author        : Awaiken
+* Template Name : ULaunch - Multi Purpose Products Landing Page
+* File          : CSS File
+* Version       : 1.0
+* ---------------------------------------------------------------------------------------- */
+/* INDEX
+----------------------------------------------------------------------------------------
+01. General css
+02. Navigation area css
+03. Slider area css
+04. About area css
+05. Features area css
+06. Pricing area css
+07. FAQs area css
+08. Testimonial area css
+09. Contact area css
+10. Mega Footer area css
+11. Footer area css
+12. Media Screens
+-------------------------------------------------------------------------------------- */
+
+/************************************/
+/***** 	   01. General css		 ****/
+/************************************/
+
+body{
+	font-size: 16px;
+	font-family: 'Rubik', sans-serif;
+	-webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
+	margin-top:0;
+	font-weight: 500;
+}
+
+img{
+	max-width: 100%;
+}
+
+a:hover{
+	text-decoration: none;
+	outline: 0;
+}
+
+a:focus{
+	text-decoration: none;
+	outline: 0;
+}
+
+.btn-custom{
+	display: inline-block;
+	font-size: 16px;
+	font-weight: 500;
+	padding: 10px 30px;
+	text-align: center;
+	color: #DFB998;
+	background: #232C39;
+	border: 2px solid #232C39;
+	border-radius: 26px;
+	transition: all 0.3s;
+}
+
+.btn-custom:focus,
+.btn-custom:hover{
+	background: none;
+	color: #232C39;
+}
+
+/************************************/
+/***** 02. Navigation area css  *****/
+/************************************/
+
+nav.navbar.bootsnav{
+	background: none !important;
+	border-bottom: 1px solid rgba(255,255,255,0);
+}
+
+.navbar-brand{
+	height: auto;
+	padding: 22px 15px 0;
+	transition: all 0.3s ease-in-out;
+}
+
+.navbar-right{
+	margin-right: 0;
+}
+
+nav.navbar.bootsnav ul.nav > li > a{
+	font-size: 14px;
+	font-weight: 300;
+	text-transform: uppercase;
+	color: #fff;
+	padding: 40px 0px 36px;
+	line-height: 1em;
+	letter-spacing: 0.05em;
+	transition: all 0.3s ease-in-out;
+}
+
+nav.navbar.bootsnav ul.nav > li > a:after{
+	content: '/';
+    padding: 0 14px 0 18px;
+    color: #fff;
+}
+
+nav.navbar.bootsnav ul.nav > li:last-child a:after{
+	display: none;
+}
+
+nav.navbar.bootsnav ul.nav > li.active > a{
+	color: #000;
+}
+
+nav.navbar.bootsnav.sticky-header{
+	background: linear-gradient(to right,#E1BB9A,#B98E6D) !important;
+    background: -webkit-linear-gradient(to right,#E1BB9A,#B98E6D) !important;
+    background: -moz-linear-gradient(to right,#E1BB9A,#B98E6D) !important;
+    background: -o-linear-gradient(to right,#E1BB9A,#B98E6D) !important;
+}
+
+nav.navbar.bootsnav.sticky-header .navbar-brand{
+	padding-top: 12px;
+}
+
+nav.navbar.bootsnav.sticky-header ul.nav > li > a{
+	padding: 30px 0px 26px;
+}
+
+/************************************/
+/*****   03. Slider area css    *****/
+/************************************/
+
+.banner{
+	position: relative;
+	top: 0px;
+	left: 0;
+	width: 100%;
+	background: #E1BB9A;
+	background: linear-gradient(to right,#E1BB9A,#B98E6D);
+	background: -webkit-linear-gradient(to right,#E1BB9A,#B98E6D);
+	background: -moz-linear-gradient(to right,#E1BB9A,#B98E6D);
+	background: -o-linear-gradient(to right,#E1BB9A,#B98E6D);
+	background-size: cover;
+	padding: 0 0 100px;
+}
+
+.banner .row{
+	position: relative;
+	z-index: 1;
+	display: flex;
+	align-items: center;
+}
+
+.header-content h2{
+	font-size: 40px;
+	color: #232C39;
+	font-weight: 400;
+	line-height: 1.2em;
+	margin-bottom: 0.6em;
+}
+
+.header-content h2 span {
+    background: #fff;
+    color: #20bea7;
+    text-transform: uppercase;
+    font-size: 32px;
+    padding: 6px 14px;
+}
+
+.header-content p{
+	color: #232C39;
+	line-height: 1.5em;
+	font-size: 18px;
+	letter-spacing: 0.04em;
+	margin-bottom: 1.8em;
+}
+
+.buy-button{
+	padding-top: 10px;
+}
+
+.btn-video{
+	display: inline-block;
+	font-size: 16px;
+	font-weight: 500;
+	padding: 10px 20px 10px 20px;
+	text-align: center;
+	color: #E2E3E5;
+	border: 2px solid #E2E3E5;
+	border-radius: 26px;
+	margin-left: 20px;
+}
+
+.btn-video i{
+	padding-right: 10px;
+}
+
+.btn-video:focus,
+.btn-video:hover{
+	background: #E2E3E5;
+	color: #232C39;
+}
+
+.slider-image{
+	text-align: center;
+}
+
+/************************************/
+/*****   04. About area css     *****/
+/************************************/
+
+.section-title{
+	margin-bottom: 60px;
+	text-align: center;
+}
+
+.section-title p{
+	color: #ff581b;
+	font-weight: 300;
+}
+
+.section-title h2{
+	font-size: 40px;
+	color: #232C39;
+	font-weight: 400;
+}
+
+.about{
+	padding: 80px 0;
+}
+
+.about .section-title{
+	text-align: left;
+}
+
+.about-entry p{
+	color: #959596;
+	line-height: 1.5em;
+	margin-bottom: 1.5em;
+	font-weight: 300;
+}
+
+.service-single{
+	padding: 30px 0 0;
+	max-width: 280px;
+}
+
+.service-single .icon-box{
+	font-size: 70px;
+	background: #ff4f0f;
+	background: linear-gradient(#E1BB9A,#B98E6D);
+	background: -webkit-linear-gradient(#E1BB9A,#B98E6D);
+	background: -moz-linear-gradient(#E1BB9A,#B98E6D);
+	background: -o-linear-gradient(#E1BB9A,#B98E6D);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.service-single h3{
+	font-size: 24px;
+	color: #232C39;
+	font-weight: 400;
+	margin-bottom: 20px;
+}
+
+.service-single p{
+	color: #959596;
+	font-weight: 300;
+	margin-bottom: 1em;
+}
+
+.btn-learn{
+	font-weight: 300;
+	color: #ff6562;
+}
+
+.btn-learn i{
+	padding-left: 10px;
+}
+
+/***************************************/
+/*****   05. Features area css     *****/
+/***************************************/
+
+.features{
+	background: #f2f6f9;
+	padding: 80px 0;
+}
+
+.feature-image{
+	padding-top: 30px;
+	text-align: center;
+}
+
+.btn-buynow{
+	display: inline-block;
+	font-size: 16px;
+	font-weight: 500;
+	padding: 10px 20px 10px 20px;
+	text-align: center;
+	background: #ff2938;
+	color: #fff;
+	border: 2px solid #ff2938;
+	border-radius: 26px;
+	margin-top: 20px;
+}
+
+.btn-buynow:hover{
+	background: none;
+	color: #ff2938;
+}
+
+.feature-single{
+	text-align: center;
+	padding: 20px 0;
+	position: relative;
+}
+
+.feature-single:before{
+	content: '';
+	display: block;
+	background: #fff;
+	position: absolute;
+	top: -10px;
+	left: -25px;
+	right: -25px;
+	bottom: -10px;
+	z-index: 1;
+	opacity: 0;
+	transform: scale(0.80);
+	transition: all 0.3s ease-in-out;
+	box-shadow: 1px 1px 20.3px 8.7px rgba(0, 0, 0, 0.11);
+}
+
+.feature-single:hover:before{
+	opacity: 1;
+	transform: scale(1);
+}
+
+.feature-single .icon-box{
+	font-size: 70px;
+	position: relative;
+	z-index: 2;
+	background: #ff4f0f;
+	background: linear-gradient(#E1BB9A,#B98E6D);
+	background: -webkit-linear-gradient(#E1BB9A,#B98E6D);
+	background: -moz-linear-gradient(#E1BB9A,#B98E6D);
+	background: -o-linear-gradient(#E1BB9A,#B98E6D);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.feature-single h3{
+	font-size: 18px;
+	color: #232C39;
+	text-transform: uppercase;
+	padding: 4px 0;
+	position: relative;
+	z-index: 2;
+}
+
+.feature-single p{
+	font-size: 14px;
+	color: #959596;
+	position: relative;
+	z-index: 2;
+}
+
+.border-right{
+	border-right: 1px solid #dde3e6;
+}
+
+.border-bottom{
+	border-bottom: 1px solid #dde3e6;
+}
+
+.border-left{
+	border-left: 1px solid #dde3e6;
+}
+
+.border-top{
+	border-top: 1px solid #dde3e6;
+}
+
+/****************************************/
+/***** 06. Related Product area css *****/
+/****************************************/
+
+.related-product{
+	padding: 80px 0 220px;
+	background: #f2f6f6 url(../images/waves.png) no-repeat bottom center;
+	background-size: contain;
+}
+
+.related-single{
+	margin-bottom: 80px;
+}
+
+.related-product-info{
+	padding-top: 30px;
+}
+
+.related-product-info h3{
+	font-size: 35px;
+	color: #06122c;
+	font-weight: 400;
+	margin-bottom: 1em;
+}
+
+.related-product-info p{
+	font-size: 17px;
+	color: #232C39;
+	font-weight: 300;
+	margin-bottom: 1.5em;
+}
+
+.related-product-info .btn-booknow{
+	margin-top: 10px;
+}
+
+/***************************************/
+/*****    06. Pricing area css     *****/
+/***************************************/
+
+.pricing{
+	padding: 100px 0;
+	background: url(../images/pricing-bg.jpg) no-repeat top center fixed;
+	background-size:cover;
+	position: relative;
+}
+
+.pricing:before{
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: #ff4f0f;
+	background: linear-gradient(to right,#E1BB9A,#B98E6D);
+	background: -webkit-linear-gradient(to right,#E1BB9A,#B98E6D);
+	background: -moz-linear-gradient(to right,#E1BB9A,#B98E6D);
+	background: -o-linear-gradient(to right,#E1BB9A,#B98E6D);
+	opacity: 0.8;
+}
+
+.pricing .section-title h2{
+	color: #fff;
+}
+
+.pricing .section-title p{
+	color: #fff;
+}
+
+.pricing-single{
+	background: #fff;
+	position: relative;
+	margin-bottom: 26px;
+	padding-bottom: 20px;
+}
+
+.pricing-header{
+	background: url(../images/pricing-header.png) no-repeat top center;
+	background-size: 100% auto;
+	padding-top: 190px;
+	text-align: center;
+}
+
+.pricing-header h3{
+	font-size: 30px;
+	color: #232C39;
+	font-weight: 700;
+	margin: 0 0 6px 0;
+}
+
+.pricing-header p{
+	font-size: 20px;
+	color: #ff6c81;
+	font-weight: 500;
+}
+
+.pricing-body ul{
+	padding: 20px 60px;
+	margin: 0;
+	list-style: none;
+	text-align: center;
+}
+
+.pricing-body ul li{
+	color: #95969a;
+	font-size: 16px;
+	font-weight: 300;
+	padding: 14px 0 12px;
+	border-bottom: 1px solid #dbdbdc;
+}
+
+.pricing-body ul li:last-child{
+	border-bottom: none;
+}
+
+.pricing-footer{
+	position: absolute;
+	bottom: -26px;
+	left: 0;
+	right: 0;
+	text-align:center;
+}
+
+.btn-choose{
+	display: inline-block;
+	color: #fff;
+	font-weight: 300;
+	font-size: 20px;
+	padding: 12px 30px;
+	border-radius: 40px;
+	background: #ff507a;
+	background: linear-gradient(to right,#ff507a, #ff685d);
+	background: -webkit-linear-gradient(to right,#ff507a, #ff685d);
+	background: -moz-linear-gradient(to right,#ff507a, #ff685d);
+	background: -o-linear-gradient(to right,#ff507a, #ff685d);
+}
+
+.btn-choose:hover{
+	background: #ff507a;
+	color: #fff;
+}
+
+.recommended .pricing-header{
+	background: url(../images/recommended-header.png) no-repeat top center;
+	background-size: 100% auto
+}
+
+.recommended .pricing-header p{
+	color: #43d3cf;
+}
+
+.recommended .btn-choose{
+	background: #43d3cf;
+	background: linear-gradient(to right,#2cdd9b, #1dc8cd);
+	background: -webkit-linear-gradient(to right,#2cdd9b, #1dc8cd);
+	background: -moz-linear-gradient(to right,#2cdd9b, #1dc8cd);
+	background: -o-linear-gradient(to right,#2cdd9b, #1dc8cd);
+}
+
+.recommended .btn-choose:hover{
+	background: #43d3cf;
+}
+
+/************************************/
+/*****    07. FAQs area css     *****/
+/************************************/
+
+.faqs{
+	padding: 80px 0;
+	background: #f2f6f9;
+}
+
+.faq-image{
+	position: relative;
+}
+
+.faq-heading{
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.faq-heading h2{
+	font-size: 40px;
+	color: #232C39;
+	font-weight: 700;
+	margin-bottom: 1em;
+}
+
+.faq-heading p{
+	color: #232C39;
+	font-weight: 300;
+}
+
+.faq-container .panel{
+	border-radius: 2px;
+}
+
+.faq-container .panel-heading{
+	padding: 0;
+}
+
+.faq-container .panel-heading h4{
+	font-size: 18px;
+	color: #232C39;
+	font-weight: 300;
+}
+
+.faq-container .panel-heading h4 a{
+	display: block;
+	padding: 10px;
+}
+
+.faq-container .panel-body{
+	border-top: none !important;
+}
+
+.faq-container .panel-body p{
+	color: #95969a;
+	font-size: 14px;
+	font-weight: 300;
+	line-height: 1.5em;
+}
+
+/*******************************************/
+/*****    08. Testimonial area css     *****/
+/*******************************************/
+
+.testimonials .container-fluid{
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.row.no-gutters{
+   margin-right: 0;
+   margin-left: 0;
+}
+.row.no-gutters > [class^="col-"],
+.row.no-gutters > [class*=" col-"] {
+   padding-right: 0;
+   padding-left: 0;
+}
+
+.testimonial-container{
+	background: url(../images/testimonial-bg.jpg) no-repeat top center;
+	padding-bottom: 20px;
+	margin-bottom: 60px;
+}
+
+.testimonial-box{
+	width: 50%;
+	padding: 6%;
+	position: relative;
+	bottom: -80px;
+}
+
+.testimonial-box:before{
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: #ff4f0f;
+	background: linear-gradient(to right,#E1BB9A,#B98E6D);
+	background: -webkit-linear-gradient(to right,#E1BB9A,#B98E6D);
+	background: -moz-linear-gradient(to right,#E1BB9A,#B98E6D);
+	background: -o-linear-gradient(to right,#E1BB9A,#B98E6D);
+	opacity: 0.94;
+	z-index: 1;
+}
+
+.testimonial-box h2{
+	position: relative;
+	z-index: 2;
+	color: #fff;
+	font-size: 40px;
+	font-weight: 500;
+	margin-bottom: 30px;
+}
+
+.testimonial-single{
+	position: relative;
+	z-index: 2;
+}
+
+.testimonial-single p{
+	color: #efeeee;
+	line-height: 1.5em;
+	font-weight: 300;
+}
+
+.testimonial-single h3{
+	color: #efeeee;
+	line-height: 1.5em;
+	font-weight: 500;
+	font-size: 16px;
+	margin-top: 20px;
+}
+
+.testimonial-pagination{
+	text-align: center;
+	padding-top: 10px;
+}
+
+.testimonial-pagination .swiper-pagination-bullet{
+	width: 14px;
+	height: 14px;
+	background: #fff;
+	border-radius: 0;
+}
+
+/***************************************/
+/*****    09. Contact area css     *****/
+/***************************************/
+
+.contactus{
+	padding: 80px 0;
+}
+
+.contact-form{
+	max-width: 568px;
+	margin: 0 auto;
+}
+
+.contact-form .form-control{
+	box-shadow: none;
+	border-radius: 0;
+	height: auto;
+	resize: none;
+	background: #f7f7f7;
+	border: none;
+	padding: 10px 14px;
+}
+
+.btn-contact{
+	display: block;
+	width: 120px;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 10px 20px 10px 20px;
+    text-align: center;
+    background: #ff2938;
+    color: #fff;
+    border: 2px solid #ff2938;
+    border-radius: 26px;
+    margin: 20px auto 0;
+}
+
+.btn-contact:hover{
+	background: none;
+	color: #ff2938;
+	outline: 0;
+}
+
+/***************************************/
+/*****  10. Mega Footer area css   *****/
+/***************************************/
+
+.mega-footer{
+	background: #232C39;
+	padding: 60px 0;
+}
+
+.footer-info h2,
+.footer-soical h2{
+	color: #fff;
+	font-size: 18px;
+	font-weight: 300;
+	margin-bottom: 20px;
+}
+
+.footer-info p{
+	color: #898989;
+	font-size: 16px;
+	font-weight: 300;
+	margin-bottom: 0;
+}
+
+.footer-soical a{
+	display: inline-block;
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	color: #fff;
+	text-align: center;
+	padding-top: 8px;
+	margin-right: 10px;
+	background: #ff4f0f;
+	background: linear-gradient(to right,#E1BB9A,#B98E6D);
+	background: -webkit-linear-gradient(to right,#E1BB9A,#B98E6D);
+	background: -moz-linear-gradient(to right,#E1BB9A,#B98E6D);
+	background: -o-linear-gradient(to right,#E1BB9A,#B98E6D);
+}
+
+.footer-soical a:hover{
+	background: #ff1053;
+}
+
+/**********************************/
+/*****  11. Footer area css   *****/
+/**********************************/
+
+footer{
+	background: #242C39;
+	padding: 30px 0;
+}
+
+.footer-siteinfo p{
+	font-size: 14px;
+	color: #fff;
+	font-weight: 300;
+	margin: 0;
+}
+
+.footer-menu{
+	text-align: right;
+}
+
+.footer-menu ul{
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+.footer-menu ul li {
+	display: inline-block;
+}
+
+.footer-menu ul li a{
+	display: block;
+	color: #fff;
+	font-weight: 300;
+	font-size: 14px;
+	padding: 0 10px;
+	letter-spacing: 0.04em;
+}
+
+.logoWrapper {
+	display: flex;
+	justify-content: center;
+	height: 9em;
+}
+
+.footerLogoWrapper {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.logoRow {
+	display: flex;
+	align-items: center;
+}
+
+.footerLogoRow {
+	display: flex;
+	align-items: center;
+}
+
+.logoRow img {
+	width: 4em;
+	height: 4em;
+}
+
+.footerLogoRow img {
+	width: 3em;
+	height: 3em;
+}
+
+.appName {
+	font-weight: 300;
+	font-size: 4em;
+	color: #232C39;
+	margin-left: 0.2em;
+}
+
+.footerAppName {
+	font-weight: 300;
+	font-size: 2em;
+	color: #D7B08F;
+	margin-left: 0.2em;
+}
+
+footer .row {
+	display: flex;
+	align-items: center;
+}
+
+.wow.fadeInRight img {
+	-webkit-box-shadow: 5px 5px 25px 10px rgb(0 0 0 / 40%);
+    -moz-box-shadow: 5px 5px 25px 10px rgb(0 0 0 / 40%);
+    box-shadow: 5px 5px 25px 10px rgb(0 0 0 / 40%);
+}
+
+.wow.fadeInLeft img {
+	-webkit-box-shadow: -5px 5px 25px 10px rgb(0 0 0 / 40%);
+    -moz-box-shadow: -5px 5px 25px 10px rgb(0 0 0 / 40%);
+    box-shadow: -5px 5px 25px 10px rgb(0 0 0 / 40%);
+}
+
+/************************************/
+/*****    12. Media Screens     *****/
+/************************************/
+
+@media only screen and (max-width: 1200px){
+	.navbar-default .navbar-nav>li>a:after{
+		padding: 0 12px 0 14px;
+	}
+}
+
+@media only screen and (max-width: 991px){
+	nav.navbar.bootsnav .navbar-header{
+		padding-left: 0;
+		padding-right: 0;
+		position: relative;
+	}
+	
+	nav.navbar.bootsnav.sticky-header .navbar-brand,
+	nav.navbar.bootsnav .navbar-brand{
+		display: block;
+		padding: 14px 0 13px;
+	}
+	
+	nav.navbar.bootsnav .navbar-collapse{
+		background: linear-gradient(to right,#E1BB9A,#B98E6D);
+		background: -webkit-linear-gradient(to right,#E1BB9A,#B98E6D);
+		background: -moz-linear-gradient(to right,#E1BB9A,#B98E6D);
+		background: -o-linear-gradient(to right,#E1BB9A,#B98E6D);
+		padding: 0 15px;
+		margin: 0;
+	}
+	
+	nav.navbar.bootsnav .navbar-toggle{
+		background: none;
+		height: 36px;
+		width: 36px;
+		color: #fff;
+		margin: 0;
+		border: 1px solid #fff;
+		border-radius: 0;
+		position: absolute;
+		right: 0;
+		top: 21px;
+	}
+	
+	nav.navbar.bootsnav .navbar-nav{
+		margin: 0;
+		padding: 0;
+	}
+	
+	nav.navbar.bootsnav.sticky-header ul.nav > li > a,
+	nav.navbar.bootsnav ul.nav > li > a{
+		padding: 14px 0;
+		border: none;
+		margin: 0;
+	}
+	
+	nav.navbar.bootsnav ul.nav > li > a:after{
+		display: none;
+	}
+	
+	.feature-image{
+		margin-bottom: 40px;
+	}
+	
+	.pricing-single{
+		max-width: 400px;
+		margin: 0 auto 60px;
+	}
+	
+	.faqs .pull-right{
+		float: none !important;
+	}
+	
+	.faq-image{
+		margin-bottom: 40px;
+	}
+	
+	.footer-info{
+		margin-bottom: 30px;
+	}
+	
+	.footer-siteinfo{
+		margin-bottom: 10px;
+	}
+	
+	.footer-siteinfo,
+	.footer-menu{
+		text-align: center;
+	}
+	
+}
+
+/* Mobile Layout */
+@media only screen and (max-width: 767px){
+	nav.navbar.bootsnav.sticky-header .navbar-brand,
+	nav.navbar.bootsnav .navbar-brand{
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+	
+	nav.navbar.bootsnav .navbar-toggle{
+		right: 15px;
+	}
+	
+	nav.navbar.bootsnav .navbar-collapse{
+		margin-left: -15px;
+		margin-right: -15px;
+	}
+	
+	.banner{
+		padding: 0 0 80px;
+	}
+	
+	.slider-image{
+		margin-bottom: 40px;
+	}
+	
+	.header-content h2 br{
+		display: none;
+	}
+	
+	.header-content h2{
+		font-size: 28px;
+	}
+	
+	.section-title{
+		margin-bottom: 40px;
+	}
+	
+	.section-title h2{
+		font-size: 24px;
+	}
+	
+	.about,
+	.features,
+	.pricing,
+	.faqs,
+	.contactus{
+		padding: 60px 0;
+	}
+	
+	.service-single{
+		max-width: 100%;
+	}
+	
+	.features .border-right,
+	.features .border-bottom{
+		border: none;
+	}
+	
+	.feature-single:before{
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
+	
+	.pricing-body ul{
+		padding: 20px 30px;
+	}
+	
+	.faq-image img{
+		display: none;
+	}
+	
+	.faq-heading{
+		position: relative;
+	}
+	
+	.faq-heading h2 br{
+		display: none;
+	}
+	
+	.faq-heading h2{
+		font-size: 28px;
+	}
+	
+	.testimonial-container{
+		padding-bottom: 0;
+		margin-bottom: 0;
+	}
+	
+	.testimonial-box{
+		width: 100%;
+		bottom: 0;
+		padding: 60px 20px;
+	}
+	
+	.testimonial-box h2 br{
+		display: none;
+	}
+
+	.testimonial-box h2{
+		font-size: 28px;
+	}
+}
+
+/* Small Mobile Layout */
+
+@media only screen and (max-width: 480px) {
+	.header-content h2,
+	.faq-heading h2{
+		font-size: 24px;
+	}
+	
+	.btn-custom{
+		display: block;
+		margin: 0 0 20px;
+	}
+	
+	.btn-video{
+		display: block;
+		margin: 0;
+	}
+}
