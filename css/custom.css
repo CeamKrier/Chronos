@@ -391,11 +391,8 @@ nav.navbar.bootsnav.sticky-header ul.nav > li > a{
 /****************************************/
 /***** 06. Related Product area css *****/
 /****************************************/
-
-.related-product{
-	padding: 80px 0 220px;
-	background: #f2f6f6 url(../images/waves.png) no-repeat bottom center;
-	background-size: contain;
+.related-product {
+	margin-top: 3em;
 }
 
 .related-single{
@@ -466,13 +463,6 @@ nav.navbar.bootsnav.sticky-header ul.nav > li > a{
 	padding-bottom: 20px;
 }
 
-.pricing-header{
-	background: url(../images/pricing-header.png) no-repeat top center;
-	background-size: 100% auto;
-	padding-top: 190px;
-	text-align: center;
-}
-
 .pricing-header h3{
 	font-size: 30px;
 	color: #232C39;
@@ -530,11 +520,6 @@ nav.navbar.bootsnav.sticky-header ul.nav > li > a{
 .btn-choose:hover{
 	background: #ff507a;
 	color: #fff;
-}
-
-.recommended .pricing-header{
-	background: url(../images/recommended-header.png) no-repeat top center;
-	background-size: 100% auto
 }
 
 .recommended .pricing-header p{
