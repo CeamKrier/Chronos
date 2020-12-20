@@ -196,7 +196,7 @@ export default function SettingsDrawer() {
         </div>
         <div className={CSS.appInfo}>
           <span>Chronos</span>
-          <span>v0.0.1 Beta</span>
+          <span>v0.0.4 Beta</span>
         </div>
       </div>
     </div>
