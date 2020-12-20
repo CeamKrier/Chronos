@@ -1088,6 +1088,19 @@ footer .row {
 	.testimonial-box h2{
 		font-size: 28px;
 	}
+
+	.footerLogoRow img {
+		width: 2em;
+		height: 2em;
+	}
+
+	.footerLogoWrapper {
+		flex-direction: column;
+	}
+	
+	.banner .row {
+		flex-direction: column;
+	}
 }
 
 /* Small Mobile Layout */
