@@ -46,6 +46,11 @@
   transition: 0.5s;
 }
 
+.startStopSection svg:hover,
+.settingsSection svg:hover {
+  cursor: pointer;
+}
+
 .settingsSection:hover,
 .startStopSection:hover {
   opacity: 0.5;
@@ -57,7 +62,6 @@
   display: flex;
   flex-direction: column;
   width: 65vw;
-  margin-right: 1em;
 }
 
 .scaleBarSectionTitleWrapper {
@@ -80,8 +84,11 @@
 .processPercentagePointer {
   width: 0.3em;
   height: 1.5em;
-  background: #bcdb59;
+  background: #c2e2d6;
   border-radius: 0.1em;
+  box-shadow: 0 0 6px 3px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0 6px 3px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 0 6px 3px rgba(0, 0, 0, 0.3);
 }
 
 .processPercentage {

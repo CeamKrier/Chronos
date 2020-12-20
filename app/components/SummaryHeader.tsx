@@ -1,8 +1,9 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ipcRenderer } from 'electron';
+import { RiZzzLine } from 'react-icons/ri';
 import { AiOutlineSetting } from 'react-icons/ai';
-import { VscDebugStart, VscDebugStop } from 'react-icons/vsc';
+import { VscDebugStart, VscDebugStop, VscVmRunning } from 'react-icons/vsc';
 import {
   totalScreenTime,
   totalUsageTime,
@@ -82,13 +83,17 @@ export default function SummaryHeader() {
       </div>
       <div className={CSS.scaleBarWrapper}>
         <div className={CSS.scaleBarSectionTitleWrapper}>
-          <span>Active</span>
+          <span>
+            <VscVmRunning size="1.4em" />
+          </span>
           <div className={CSS.sessionInformationSection}>
             <span className={CSS.sessionInformationTime}>
               {new Date(screenTime * 1000).toISOString().substr(11, 8)}
             </span>
           </div>
-          <span>Inactive</span>
+          <span>
+            <RiZzzLine size="1.4em" />
+          </span>
         </div>
         <div className={CSS.processScaleBar}>
           <div

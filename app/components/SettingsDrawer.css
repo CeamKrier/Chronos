@@ -166,3 +166,17 @@ input[type='range']::-webkit-slider-runnable-track {
 input[type='range']:focus::-webkit-slider-runnable-track {
   background: #7e7070;
 }
+
+.appInfo {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  bottom: 3em;
+  width: inherit;
+  text-align: center;
+}
+
+.appInfo span {
+  font-size: small;
+  color: #cac7c7;
+}

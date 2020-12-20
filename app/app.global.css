@@ -18,6 +18,7 @@ body {
   font-family: Arial, Helvetica, Helvetica Neue, serif;
   overflow: hidden;
   margin-bottom: 0;
+  user-select: none;
 }
 
 h2 {

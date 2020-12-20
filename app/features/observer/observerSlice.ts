@@ -19,7 +19,7 @@ import {
 const Storage = DataStore();
 // Timezone offset in miliseconds
 const timezoneOffset = new Date().getTimezoneOffset() * 60000;
-const date = new Date(Date.now() - timezoneOffset).toISOString().slice(0, 10);
+let date = new Date(Date.now() - timezoneOffset).toISOString().slice(0, 10);
 
 const prepareInitialState = () => {
   const sessions = Storage.get('dailySessions');
@@ -180,6 +180,10 @@ const observerSlice = createSlice({
         UpdatePomodoroTotalWorkTime(date, false, true);
       }
     },
+    switchToNextDay: (state) => {
+      state.processes = [];
+      state.screenTime = 0;
+    },
   },
 });
 
@@ -190,11 +194,24 @@ export const {
   incrementPomodoroBreakTimeByOneSecond,
   incrementPomodoroWorkTimeByOneSecond,
   resetPomodoroCounter,
+  switchToNextDay,
 } = observerSlice.actions;
 
 export const observeProcess = (incomingProcess: ProcessType): AppThunk => {
+  const currentDate = new Date(
+    Date.now() - new Date().getTimezoneOffset() * 60000
+  )
+    .toISOString()
+    .slice(0, 10);
   return (dispatch, getState) => {
     const state = getState();
+
+    if (currentDate !== date) {
+      date = currentDate;
+      prepareInitialState();
+      dispatch(switchToNextDay());
+      return;
+    }
 
     if (state.settings.preferences.isPomodoroEnabled) {
       if (state.observer.pomodoroTracker.break.isActive) {
