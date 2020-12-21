@@ -1,7 +1,7 @@
 {
   "name": "chronos",
   "productName": "Chronos",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "A desktop application that tracks screen time/idle time of used processes to enable you to analyze your habits",
   "main": "./main.prod.js",
   "author": {
