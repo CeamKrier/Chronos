@@ -2,9 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-cycle
 import { AppThunk, RootState } from '../../store';
 
-const counterSlice = createSlice({
-  name: 'counter',
-  initialState: { value: 0 },
+const prepareInitialState = () => {
+  return {};
+};
+
+const historicalAnalysisSlice = createSlice({
+  name: 'historicalAnalysis',
+  initialState: prepareInitialState(),
   reducers: {
     increment: (state) => {
       state.value += 1;
@@ -15,7 +19,7 @@ const counterSlice = createSlice({
   },
 });
 
-export const { increment, decrement } = counterSlice.actions;
+export const { increment, decrement } = historicalAnalysisSlice.actions;
 
 export const incrementIfOdd = (): AppThunk => {
   return (dispatch, getState) => {
@@ -33,6 +37,6 @@ export const incrementAsync = (delay = 1000): AppThunk => (dispatch) => {
   }, delay);
 };
 
-export default counterSlice.reducer;
+export default historicalAnalysisSlice.reducer;
 
 export const selectCount = (state: RootState) => state.counter.value;

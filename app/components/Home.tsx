@@ -2,14 +2,16 @@ import React, { useEffect, useCallback, useMemo } from 'react';
 // import { Link } from 'react-router-dom';
 import { ipcRenderer } from 'electron';
 import { useDispatch } from 'react-redux';
-import { observeProcess } from '../features/observer/observerSlice';
-import { ProcessType } from '../utils/typeKeeper';
-// import routes from '../constants/routes.json';
+
 import ProcessList from './ProcessList';
 import SummaryHeader, { StartObserver, StopObserver } from './SummaryHeader';
 import ConfirmationDialog from './ConfirmationDialog';
 import SettingsDrawer from './SettingsDrawer';
 import Footer from './Footer';
+
+import { observeProcess } from '../features/observer/observerSlice';
+import { ProcessType } from '../utils/typeKeeper';
+
 import CSS from './Home.css';
 
 export default function Home(): JSX.Element {
@@ -48,7 +50,6 @@ export default function Home(): JSX.Element {
     <div className={CSS.container}>
       {renderConfirmationDialog}
       {renderSummaryHeader}
-      {/* <Link to={routes.COUNTER}>to Counter</Link> */}
       {renderSettingsDrawer}
       {renderProcessList}
       {renderFooter}

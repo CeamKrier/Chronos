@@ -6,13 +6,15 @@ import App from './containers/App';
 import HomePage from './containers/HomePage';
 
 // Lazily load routes and code split with webpack
-const LazyCounterPage = React.lazy(() =>
-  import(/* webpackChunkName: "CounterPage" */ './containers/CounterPage')
+const LazyHistoricalAnalysisPage = React.lazy(() =>
+  import(
+    /* webpackChunkName: "HistoricalAnalysisPage" */ './containers/HistoricalAnalysisPage'
+  )
 );
 
-const CounterPage = (props: Record<string, any>) => (
+const HistoricalAnalysisPage = (props: Record<string, any>) => (
   <React.Suspense fallback={<h1>Loading...</h1>}>
-    <LazyCounterPage {...props} />
+    <LazyHistoricalAnalysisPage {...props} />
   </React.Suspense>
 );
 
@@ -20,7 +22,10 @@ export default function Routes() {
   return (
     <App>
       <Switch>
-        <Route path={routes.COUNTER} component={CounterPage} />
+        <Route
+          path={routes.HISTORICAL_ANALYSIS}
+          component={HistoricalAnalysisPage}
+        />
         <Route path={routes.HOME} component={HomePage} />
       </Switch>
     </App>

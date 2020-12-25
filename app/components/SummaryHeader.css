@@ -24,12 +24,32 @@
   font-size: 27px;
 }
 
-.settingsSection {
+.settingsAndHistoricalSectionWrapper {
   position: absolute;
   right: 0;
   display: flex;
-  width: 3em;
-  height: 3em;
+  flex-direction: column;
+  height: 3.7em;
+  justify-content: space-between;
+}
+
+.historicalSection {
+  display: flex;
+  width: 1.5em;
+  height: 1.5em;
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s;
+}
+
+.historicalSection a {
+  opacity: unset;
+}
+
+.settingsSection {
+  display: flex;
+  width: 1.5em;
+  height: 1.5em;
   justify-content: center;
   align-items: center;
   transition: 0.5s;
@@ -47,12 +67,14 @@
 }
 
 .startStopSection svg:hover,
-.settingsSection svg:hover {
+.settingsSection svg:hover,
+.historicalSection svg:hover {
   cursor: pointer;
 }
 
 .settingsSection:hover,
-.startStopSection:hover {
+.startStopSection:hover,
+.historicalSection:hover {
   opacity: 0.5;
 }
 
