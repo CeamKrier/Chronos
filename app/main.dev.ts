@@ -142,7 +142,9 @@ const createWindow = async () => {
     if (!mainWindow) {
       throw new Error('"mainWindow" is not defined');
     }
-    mainWindow?.hide();
+    if (process.env.NODE_ENV !== 'development') {
+      mainWindow?.hide();
+    }
   });
 
   ipcMain.on('startObserving', initiateObserverTicker);
