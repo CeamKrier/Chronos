@@ -6,6 +6,13 @@
 
 <a href="https://www.producthunt.com/posts/chronos-9?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-chronos-9" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=278684&theme=dark" alt="Chronos - The Ultimate Process Tracker with Pomodoro Timer | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 
+<a href='https://www.buymeacoffee.com/ceamkrier'>
+  <img
+    src='https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=ceamkrier&button_colour=f9d366&font_colour=000000&font_family=Comic&outline_colour=000000&coffee_colour=FFDD00'
+    alt='buymeacoffee'
+  />
+</a>
+
 ## Download
 
 For now, application only available for the Windows yet I am planning to expand it to Linux/macOS. Contributions are welcome!
