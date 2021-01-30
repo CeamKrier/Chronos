@@ -7,7 +7,9 @@
 }
 
 .processCard {
+  position: relative;
   display: flex;
+  flex-direction: column;
   width: 75vw;
   height: 4em;
   margin-top: 0.7em;
@@ -16,6 +18,80 @@
   background-color: #e2e3e5;
   color: #232c39;
   border-radius: 0.2em;
+}
+
+.processListHeader {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+.processDetailSection {
+  min-height: 5em;
+  width: 100%;
+  margin-top: -1em;
+}
+
+.homeButton {
+  display: flex;
+  width: 2em;
+  height: 2em;
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s;
+}
+
+.homeButton a {
+  opacity: unset;
+}
+
+.homeButton svg:hover {
+  cursor: pointer;
+}
+
+.homeButton:hover {
+  opacity: 0.5;
+}
+
+.processRow {
+  display: flex;
+  min-height: 3em;
+}
+
+.openHistoricView {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 0.5em;
+  transition: 0.5s;
+}
+
+.openHistoricView:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.processScaleTitleWrapper {
+  display: flex;
+  margin-left: -1.8em;
+  width: 86.6vw;
+  justify-content: space-around;
+  position: absolute;
+  bottom: 1em;
+}
+
+.sessionInformationSection {
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+}
+
+.sessionInformationTitle {
+  font-size: smaller;
+  margin-bottom: -0.3em;
+}
+
+.sessionInformationTime {
+  font-size: 19px;
 }
 
 .processCardInnerSection {

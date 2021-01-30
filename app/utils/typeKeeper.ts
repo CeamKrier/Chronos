@@ -62,3 +62,8 @@ export interface ConfirmationDialogTypes {
   actionType: 'info' | 'question' | 'warning';
   dialogConfirmedOrRejected?: boolean | undefined;
 }
+export interface ProcessUsageBarType {
+  usageTime: number;
+  idleTime: number;
+  style: React.CSSProperties;
+}
