@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 // import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ApexChart from 'react-apexcharts';
@@ -35,6 +35,8 @@ export default function HistoricalAnalysis() {
   const data = Storage.get('dailySessions');
   const sessions = Object.keys(data);
 
+  const [currentProcess, setCurrentProcess] = useState(null);
+
   const populateProcessUsage = () => {
     const totalProcessUsage: TotalProcessUsageType = {};
     let totalUsageTime = 0;
@@ -64,7 +66,7 @@ export default function HistoricalAnalysis() {
     return { processUsageData: totalProcessUsage, totalUsageTime };
   };
 
-  const { processUsageData, totalUsageTime } = populateProcessUsage();
+  const { processUsageData } = populateProcessUsage();
 
   const retrieveTopTenProcesses = () => {
     return Object.values(processUsageData)
@@ -75,6 +77,13 @@ export default function HistoricalAnalysis() {
       .slice(0, 10);
   };
 
+  const handleProcessDetailClick = useCallback(
+    (processName) => () => {
+      setCurrentProcess(processName);
+    },
+    []
+  );
+
   return (
     <div className={CSS.historicalPageWrapper}>
       <div className={CSS.homeButton} role="button" tabIndex={0}>
@@ -84,6 +93,9 @@ export default function HistoricalAnalysis() {
       </div>
 
       <div className={CSS.processDetailSection}>
+        <span className={CSS.processDetailTitle}>
+          {`Last 15 Days - ${currentProcess || 'Overall'}`}
+        </span>
         <ApexChart
           type="bar"
           series={[
@@ -97,7 +109,7 @@ export default function HistoricalAnalysis() {
             },
           ]}
           options={{
-            colors:['#88CAFF', '#C6A07F'],
+            colors: ['#88CAFF', '#C6A07F'],
             chart: {
               type: 'bar',
               height: 350,
@@ -111,18 +123,18 @@ export default function HistoricalAnalysis() {
               },
             },
             tooltip: {
-              theme: 'dark'
+              theme: 'dark',
             },
             plotOptions: {
               bar: {
                 horizontal: false,
               },
-              colors: ['red']
+              colors: ['red'],
             },
             dataLabels: {
               style: {
-                colors: ['#E2E3E5']
-              }
+                colors: ['#E2E3E5'],
+              },
             },
             xaxis: {
               type: 'datetime',
@@ -136,10 +148,11 @@ export default function HistoricalAnalysis() {
               ],
             },
             legend: {
-              position: 'bottom'
+              position: 'bottom',
+              offsetY: 7,
             },
             fill: {
-              opacity: .8,
+              opacity: 0.8,
             },
           }}
         />
@@ -154,19 +167,25 @@ export default function HistoricalAnalysis() {
         )} min screen time`}
       </p> */}
       <div className={CSS.processCardWrapper}>
-        {retrieveTopTenProcesses().map((process, index) => (
+        {retrieveTopTenProcesses().map((process) => (
           <div className={CSS.processCard} key={process.name}>
             <div className={CSS.openHistoricView}>
-              <ImStatsBars size="1.3em" />
+              <ImStatsBars
+                size="1.3em"
+                onClick={handleProcessDetailClick(process.name)}
+              />
             </div>
             <div className={CSS.processRow}>
               <div className={CSS.processCardLeftSection}>
                 <span>{`${process.name}`}</span>
               </div>
               <div className={CSS.procesCardRigthSection}>
-                <span>{`Average: ${getCeil(
-                  getCeil(process.usageTime / 60) / process.daysOfUsage
-                )} ${process.daysOfUsage} days`}</span>
+                <span>{`Duration: ${process.daysOfUsage} days`}</span>
+                <span>
+                  {`Average Daily Usage: ${getCeil(
+                    getCeil(process.usageTime / 60) / process.daysOfUsage
+                  )}`}
+                </span>
               </div>
             </div>
 
