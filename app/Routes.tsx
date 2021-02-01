@@ -1,6 +1,7 @@
 /* eslint react/jsx-props-no-spreading: off */
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { AiOutlineLoading } from 'react-icons/ai';
 import routes from './constants/routes.json';
 import App from './containers/App';
 import HomePage from './containers/HomePage';
@@ -12,8 +13,17 @@ const LazyHistoricalAnalysisPage = React.lazy(() =>
   )
 );
 
+const LoaderSpinner = (
+  <div className="loaderWrapper">
+    <div className="loadingColumn">
+      <p>Loading</p>
+      <AiOutlineLoading size="2em" className="spinner" />
+    </div>
+  </div>
+);
+
 const HistoricalAnalysisPage = (props: Record<string, any>) => (
-  <React.Suspense fallback={<h1>Loading...</h1>}>
+  <React.Suspense fallback={LoaderSpinner}>
     <LazyHistoricalAnalysisPage {...props} />
   </React.Suspense>
 );
