@@ -98,6 +98,7 @@ export default function HistoricalAnalysis() {
         </span>
         <ApexChart
           type="bar"
+          height={250}
           series={[
             {
               name: 'Active Usage',
@@ -112,7 +113,6 @@ export default function HistoricalAnalysis() {
             colors: ['#88CAFF', '#C6A07F'],
             chart: {
               type: 'bar',
-              height: 350,
               foreColor: '#E2E3E5',
               stacked: true,
               toolbar: {
