@@ -4,12 +4,12 @@ import { Switch, Route } from 'react-router-dom';
 import { AiOutlineLoading } from 'react-icons/ai';
 import routes from './constants/routes.json';
 import App from './containers/App';
-import HomePage from './containers/HomePage';
+import HomeContainer from './containers/HomeContainer';
 
 // Lazily load routes and code split with webpack
-const LazyHistoricalAnalysisPage = React.lazy(() =>
+const LazyHistoricalAnalysisContainer = React.lazy(() =>
   import(
-    /* webpackChunkName: "HistoricalAnalysisPage" */ './containers/HistoricalAnalysisPage'
+    /* webpackChunkName: "HistoricalAnalysisPage" */ './containers/HistoricalAnalysisContainer'
   )
 );
 
@@ -24,7 +24,7 @@ const LoaderSpinner = (
 
 const HistoricalAnalysisPage = (props: Record<string, any>) => (
   <React.Suspense fallback={LoaderSpinner}>
-    <LazyHistoricalAnalysisPage {...props} />
+    <LazyHistoricalAnalysisContainer {...props} />
   </React.Suspense>
 );
 
@@ -36,7 +36,7 @@ export default function Routes() {
           path={routes.HISTORICAL_ANALYSIS}
           component={HistoricalAnalysisPage}
         />
-        <Route path={routes.HOME} component={HomePage} />
+        <Route path={routes.HOME} component={HomeContainer} />
       </Switch>
     </App>
   );

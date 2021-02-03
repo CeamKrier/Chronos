@@ -3,14 +3,17 @@ import React, { useEffect, useCallback, useMemo } from 'react';
 import { ipcRenderer } from 'electron';
 import { useDispatch } from 'react-redux';
 
-import ProcessList from './ProcessList';
-import SummaryHeader, { StartObserver, StopObserver } from './SummaryHeader';
-import ConfirmationDialog from './ConfirmationDialog';
-import SettingsDrawer from './SettingsDrawer';
-import Footer from './Footer';
+import ProcessList from '../../components/ProcessList';
+import SummaryHeader, {
+  StartObserver,
+  StopObserver,
+} from '../../components/SummaryHeader';
+import ConfirmationDialog from '../../components/ConfirmationDialog';
+import SettingsDrawer from '../../components/SettingsDrawer';
+import Footer from '../../components/Footer';
 
-import { observeProcess } from '../features/observer/observerSlice';
-import { ProcessType } from '../utils/typeKeeper';
+import { observeProcess } from '../../features/observer/observerSlice';
+import { ProcessType } from '../../utils/typeKeeper';
 
 import CSS from './Home.css';
 

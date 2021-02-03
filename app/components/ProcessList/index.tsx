@@ -6,8 +6,8 @@ import StringToColor from 'string-to-color';
 import {
   allProcesses,
   totalScreenTime,
-} from '../features/observer/observerSlice';
-import { isPomodoroEnabled } from '../features/settings/settingsSlice';
+} from '../../features/observer/observerSlice';
+import { isPomodoroEnabled } from '../../features/settings/settingsSlice';
 import CSS from './ProcessList.css';
 
 export default function ProcessList() {

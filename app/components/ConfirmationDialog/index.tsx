@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   dialogData,
   getUserResponseToDialog,
-} from '../features/dialog/dialogSlice';
+} from '../../features/dialog/dialogSlice';
 
 import CSS from './ConfirmationDialog.css';
 

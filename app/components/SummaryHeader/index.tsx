@@ -9,10 +9,10 @@ import { VscDebugStart, VscDebugStop, VscVmRunning } from 'react-icons/vsc';
 import {
   totalScreenTime,
   totalUsageTime,
-} from '../features/observer/observerSlice';
-import { ToggleDrawerVisibility } from '../features/settings/settingsSlice';
+} from '../../features/observer/observerSlice';
+import { ToggleDrawerVisibility } from '../../features/settings/settingsSlice';
 
-import routes from '../constants/routes.json';
+import routes from '../../constants/routes.json';
 
 import CSS from './SummaryHeader.css';
 

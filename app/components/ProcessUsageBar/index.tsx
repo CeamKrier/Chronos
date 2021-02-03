@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ProcessUsageBarType } from '../utils/typeKeeper';
+import { ProcessUsageBarType } from '../../utils/typeKeeper';
 import CSS from './ProcessUsageBar.css';
 
 export default function ProcessUsageBar({

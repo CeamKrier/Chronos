@@ -10,14 +10,14 @@ import {
   shouldAppLaunchAtBoot,
   enablePomodoroTracker,
   isPomodoroEnabled,
-} from '../features/settings/settingsSlice';
+} from '../../features/settings/settingsSlice';
 import {
   pomodoroLongBreakLimit,
   pomodoroShortBreakLimit,
   pomodoroWorkLimit,
-} from '../features/observer/observerSlice';
+} from '../../features/observer/observerSlice';
 
-import debounce from '../helpers/eventHelper';
+import debounce from '../../helpers/eventHelper';
 
 import CSS from './SettingsDrawer.css';
 
