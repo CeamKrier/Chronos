@@ -9,27 +9,14 @@ import ProcessUsageBar from '../../components/ProcessUsageBar';
 import Chart from '../../components/Chart';
 
 import DataStore from '../../utils/electronStore';
+import { TotalProcessUsageType } from '../../utils/typeKeeper';
 
 import routes from '../../constants/routes.json';
 
 import CSS from './HistoricalAnalysis.css';
 
-type TotalProcessUsageType = {
-  [key: string]: {
-    idleTime: number;
-    usageTime: number;
-    daysOfUsage: number;
-    name: string;
-    sessions: Array<{
-      idleTime: number;
-      usageTime: number;
-      date: string;
-    }>;
-  };
-};
-
-const getCeil = (seconds: number) => {
-  return Math.ceil(seconds);
+const getFloor = (seconds: number) => {
+  return Math.floor(seconds);
 };
 
 const secondsToHMS = (secs: number | string) => {
@@ -150,8 +137,8 @@ export default function HistoricalAnalysis() {
           </div>
           <div className={CSS.procesCardRigthSection}>
             <span>
-              {`Avg. Daily Use: ${getCeil(
-                getCeil(
+              {`Daily Use (Avg.): ${getFloor(
+                getFloor(
                   (process.usageTime + process.idleTime) / process.daysOfUsage
                 ) / 60
               )} mins`}
@@ -160,15 +147,18 @@ export default function HistoricalAnalysis() {
         </div>
 
         <div className={CSS.processScaleTitleWrapper}>
-          <span>
+          <span className={CSS.processUsageBarIcon}>
             <VscVmRunning size="1.4em" />
           </span>
           <div className={CSS.sessionInformationSection}>
+            <span className={CSS.sessionInformationTotalDayTitle}>{`During ${
+              process.daysOfUsage
+            } ${process.daysOfUsage > 1 ? 'Days' : 'Day'}`}</span>
             <span className={CSS.sessionInformationTime}>
               {secondsToHMS(process.usageTime + process.idleTime)}
             </span>
           </div>
-          <span>
+          <span className={CSS.processUsageBarIcon}>
             <RiZzzLine size="1.4em" />
           </span>
         </div>
@@ -203,13 +193,13 @@ export default function HistoricalAnalysis() {
               {
                 name: 'Active Usage',
                 data: processUsageData[currentProcess!].sessions.map((val) =>
-                  getCeil(val.usageTime / 60)
+                  getFloor(val.usageTime / 60)
                 ),
               },
               {
                 name: 'Inactive Usage',
                 data: processUsageData[currentProcess!].sessions.map((val) =>
-                  getCeil(val.idleTime / 60)
+                  getFloor(val.idleTime / 60)
                 ),
               },
             ]}
@@ -221,7 +211,9 @@ export default function HistoricalAnalysis() {
       ) : (
         <div className={CSS.historicOverview}>
           <span>Daily Screen Time (Avg.)</span>
-          <span>{secondsToHMS(getCeil(totalUsageTime / 10))}</span>
+          <span className={CSS.totalScreenTimeText}>
+            {secondsToHMS(getFloor(totalUsageTime / 10))}
+          </span>
         </div>
       )}
 

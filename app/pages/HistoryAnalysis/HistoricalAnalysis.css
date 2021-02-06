@@ -1,6 +1,6 @@
 .processCardWrapper {
   overflow-y: scroll;
-  height: calc(100vh - 24em);
+  height: calc(100vh - 23.8em);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,7 +11,7 @@
   display: flex;
   flex-direction: column;
   width: 87.8vw;
-  min-height: 7em;
+  min-height: 8em;
   margin-top: 0.7em;
   margin-bottom: 0.7em;
   background-color: #e2e3e5;
@@ -25,6 +25,15 @@
   margin-top: 0.5em;
 }
 
+.processDetailSection {
+  width: 100%;
+  min-height: 283.67px;
+}
+
+.processDetailTitle {
+  margin-left: 1em;
+}
+
 .historicOverview {
   display: flex;
   flex-direction: column;
@@ -34,12 +43,16 @@
   min-height: 283.67px;
 }
 
-.processDetailSection {
-  width: 100%;
+.totalScreenTimeText {
+  font-size: 100px;
+  background: -webkit-linear-gradient(#e8cfb8, #a17453);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.processDetailTitle {
-  margin-left: 1em;
+.processUsageBarIcon {
+  align-self: flex-end;
 }
 
 .homeButton {
@@ -94,6 +107,11 @@
   flex-direction: column;
   display: flex;
   align-items: center;
+}
+
+.sessionInformationTotalDayTitle {
+  font-weight: 600;
+  margin-bottom: 0.3em;
 }
 
 .sessionInformationTitle {
