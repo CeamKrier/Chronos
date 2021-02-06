@@ -25,6 +25,15 @@
   margin-top: 0.5em;
 }
 
+.historicOverview {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 283.67px;
+}
+
 .processDetailSection {
   width: 100%;
 }

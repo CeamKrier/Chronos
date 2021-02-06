@@ -113,7 +113,7 @@ export default function HistoricalAnalysis() {
     return { processUsageData: totalProcessUsage, totalUsageTime };
   };
 
-  const { processUsageData } = populateProcessUsage();
+  const { processUsageData, totalUsageTime } = populateProcessUsage();
 
   const retrieveTopTenProcesses = useCallback(() => {
     return Object.values(processUsageData)
@@ -177,6 +177,7 @@ export default function HistoricalAnalysis() {
           usageTime={process.usageTime}
           idleTime={process.idleTime}
           style={{ backgroundColor: '#FFAD00' }}
+          type="historic"
         />
       </div>
     ));
@@ -190,7 +191,7 @@ export default function HistoricalAnalysis() {
         </Link>
       </div>
 
-      {currentProcess && (
+      {currentProcess ? (
         <div className={CSS.processDetailSection}>
           <span className={CSS.processDetailTitle}>
             {`Daily Usages - ${currentProcess}`}
@@ -216,6 +217,11 @@ export default function HistoricalAnalysis() {
               (val) => val.date
             )}
           />
+        </div>
+      ) : (
+        <div className={CSS.historicOverview}>
+          <span>Daily Screen Time (Avg.)</span>
+          <span>{secondsToHMS(getCeil(totalUsageTime / 10))}</span>
         </div>
       )}
 

@@ -6,6 +6,8 @@ import { RiZzzLine, RiHistoryLine } from 'react-icons/ri';
 import { AiOutlineSetting } from 'react-icons/ai';
 import { VscDebugStart, VscDebugStop, VscVmRunning } from 'react-icons/vsc';
 
+import ProcessUsageBar from '../ProcessUsageBar';
+
 import {
   totalScreenTime,
   totalUsageTime,
@@ -86,6 +88,7 @@ export default function SummaryHeader() {
           <VscDebugStart size="2em" />
         )}
       </div>
+
       <div className={CSS.scaleBarWrapper}>
         <div className={CSS.scaleBarSectionTitleWrapper}>
           <span>
@@ -100,22 +103,13 @@ export default function SummaryHeader() {
             <RiZzzLine size="1.4em" />
           </span>
         </div>
-        <div className={CSS.processScaleBar}>
-          <div
-            className={CSS.processPercentage}
-            style={{ width: `${usagePercentage}%` }}
-          >
-            {`${usagePercentage}%`}
-          </div>
-          <div className={CSS.processPercentagePointer} />
-          <div
-            className={CSS.processPercentage}
-            style={{ width: `${idlePercentage}%` }}
-          >
-            {`${idlePercentage}%`}
-          </div>
-        </div>
+        <ProcessUsageBar
+          usageTime={usageTotalTime}
+          idleTime={screenTotalTime - usageTotalTime}
+          type="summary"
+        />
       </div>
+
       <div className={CSS.settingsAndHistoricalSectionWrapper}>
         <div
           className={CSS.settingsSection}

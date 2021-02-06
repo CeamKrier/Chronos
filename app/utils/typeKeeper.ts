@@ -65,5 +65,6 @@ export interface ConfirmationDialogTypes {
 export interface ProcessUsageBarType {
   usageTime: number;
   idleTime: number;
-  style: React.CSSProperties;
+  style?: React.CSSProperties;
+  type: 'summary' | 'historic';
 }

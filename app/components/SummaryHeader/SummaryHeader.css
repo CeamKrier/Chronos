@@ -93,30 +93,3 @@
   padding: 0 1em 0.2em 1em;
   align-items: flex-end;
 }
-
-.processScaleBar {
-  width: inherit;
-  height: 1.2em;
-  background: #e2e3e5;
-  display: flex;
-  align-items: center;
-  border-radius: 0.1em;
-  font-size: 14px;
-}
-
-.processPercentagePointer {
-  width: 0.3em;
-  height: 1.5em;
-  background: #c2e2d6;
-  border-radius: 0.1em;
-  box-shadow: 0 0 6px 3px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0 0 6px 3px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0 0 6px 3px rgba(0, 0, 0, 0.3);
-}
-
-.processPercentage {
-  display: flex;
-  justify-content: center;
-  color: #242c39;
-  font-weight: 600;
-}

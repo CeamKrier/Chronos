@@ -26,6 +26,14 @@ type ChartType = {
   categories: Array<string>;
 };
 
+const minutesToHM = (secs: number | string) => {
+  const adjustedSeconds = typeof secs === 'string' ? parseInt(secs) : secs;
+  const hours = Math.floor(adjustedSeconds / 60);
+  const minutes = Math.floor(adjustedSeconds) % 60;
+
+  return [hours, minutes].map((v) => (v < 10 ? '0' + v : v)).join(':');
+};
+
 export default function Chart({ type, height, categories, series }: ChartType) {
   const chartOptions = {
     colors: ['#88CAFF', '#C6A07F'],
@@ -42,6 +50,11 @@ export default function Chart({ type, height, categories, series }: ChartType) {
     },
     tooltip: {
       theme: 'dark',
+      y: {
+        formatter: function (value: string) {
+          return minutesToHM(value);
+        },
+      },
     },
     plotOptions: {
       bar: {
