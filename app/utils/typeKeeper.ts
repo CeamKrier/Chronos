@@ -62,3 +62,23 @@ export interface ConfirmationDialogTypes {
   actionType: 'info' | 'question' | 'warning';
   dialogConfirmedOrRejected?: boolean | undefined;
 }
+export interface ProcessUsageBarType {
+  usageTime: number;
+  idleTime: number;
+  style?: React.CSSProperties;
+  type: 'summary' | 'historic';
+}
+
+export type TotalProcessUsageType = {
+  [key: string]: {
+    idleTime: number;
+    usageTime: number;
+    daysOfUsage: number;
+    name: string;
+    sessions: Array<{
+      idleTime: number;
+      usageTime: number;
+      date: string;
+    }>;
+  };
+};

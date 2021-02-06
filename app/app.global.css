@@ -65,3 +65,29 @@ a:hover {
 .titlebar > .window-appicon {
   background-size: 20px !important;
 }
+
+.spinner {
+  animation: spin 2s infinite linear;
+}
+
+.loaderWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 85vh;
+}
+
+.loadingColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}

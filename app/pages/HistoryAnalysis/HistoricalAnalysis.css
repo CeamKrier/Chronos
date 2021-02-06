@@ -1,0 +1,160 @@
+.processCardWrapper {
+  overflow-y: scroll;
+  height: calc(100vh - 23.8em);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.processCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 87.8vw;
+  min-height: 8em;
+  margin-top: 0.7em;
+  margin-bottom: 0.7em;
+  background-color: #e2e3e5;
+  color: #232c39;
+  border-radius: 0.2em;
+}
+
+.processListHeader {
+  margin-left: 1em;
+  margin-right: 1em;
+  margin-top: 0.5em;
+}
+
+.processDetailSection {
+  width: 100%;
+  min-height: 283.67px;
+}
+
+.processDetailTitle {
+  margin-left: 1em;
+}
+
+.historicOverview {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 283.67px;
+}
+
+.totalScreenTimeText {
+  font-size: 100px;
+  background: -webkit-linear-gradient(#e8cfb8, #a17453);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.processUsageBarIcon {
+  align-self: flex-end;
+}
+
+.homeButton {
+  display: flex;
+  width: 2em;
+  height: 2em;
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s;
+}
+
+.homeButton a {
+  opacity: unset;
+}
+
+.homeButton svg:hover {
+  cursor: pointer;
+}
+
+.homeButton:hover {
+  opacity: 0.5;
+}
+
+.processRow {
+  display: flex;
+  min-height: 3em;
+  margin-top: 1em;
+}
+
+.openHistoricView {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 0.5em;
+  transition: 0.5s;
+}
+
+.openHistoricView:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.processScaleTitleWrapper {
+  display: flex;
+  width: 86.6vw;
+  justify-content: space-around;
+  position: absolute;
+  bottom: 1em;
+}
+
+.sessionInformationSection {
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+}
+
+.sessionInformationTotalDayTitle {
+  font-weight: 600;
+  margin-bottom: 0.3em;
+}
+
+.sessionInformationTitle {
+  font-size: smaller;
+  margin-bottom: -0.3em;
+}
+
+.sessionInformationTime {
+  font-size: 19px;
+}
+
+.processCardInnerSection {
+  background-color: #e2e3e5;
+}
+
+.processCardLeftSection {
+  display: flex;
+  align-items: center;
+  width: 38%;
+  font-weight: 700;
+  margin-left: 2em;
+}
+
+.procesCardRigthSection {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  width: 50%;
+}
+
+.processCardWrapper::-webkit-scrollbar-track {
+  background-color: #232c39;
+}
+
+.processCardWrapper::-webkit-scrollbar {
+  width: 10px;
+  background-color: #f5f5f5;
+}
+
+.processCardWrapper::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #fffd;
+}

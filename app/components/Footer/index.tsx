@@ -5,12 +5,12 @@ import { BiReset } from 'react-icons/bi';
 import {
   getCurrentIteration,
   resetPomodoroCounter,
-} from '../features/observer/observerSlice';
+} from '../../features/observer/observerSlice';
 import {
   showDialog,
   dialogConfirmedOrRejected,
   resetDialogResponse,
-} from '../features/dialog/dialogSlice';
+} from '../../features/dialog/dialogSlice';
 
 import CSS from './Footer.css';
 
