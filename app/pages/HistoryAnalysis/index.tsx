@@ -59,11 +59,28 @@ export default function HistoricalAnalysis() {
     return arrayOfDays;
   };
 
+  const lastTwoDayUsageRatio = useMemo(() => {
+    const values = Object.values(data);
+
+    const today = values[values.length - 1].screenTime;
+    const yesterday = values[values.length - 2].screenTime;
+
+    const ratio = ((today / yesterday) * 100 - 100).toFixed(1);
+
+    return {
+      ratio,
+      difference: today - yesterday,
+      state: +ratio < 0 ? 'down' : 'up',
+    };
+  }, [data]);
+
+  const lastTenDaySessionInfo = getLastXDayOfSessions();
+
   const populateProcessUsage = () => {
     const totalProcessUsage: TotalProcessUsageType = {};
     let totalUsageTime = 0;
 
-    getLastXDayOfSessions().forEach((session) => {
+    lastTenDaySessionInfo.forEach((session) => {
       if (data[session]) {
         data[session].processes.forEach((process) => {
           if (process.owner.name in totalProcessUsage) {
@@ -213,6 +230,18 @@ export default function HistoricalAnalysis() {
           <span>Daily Screen Time (Avg.)</span>
           <span className={CSS.totalScreenTimeText}>
             {secondsToHMS(getFloor(totalUsageTime / 10))}
+          </span>
+          <span className={CSS.screenTimeChangeRatioText}>
+            Daily Change:{' '}
+            <span
+              style={{
+                color:
+                  lastTwoDayUsageRatio.state === 'up' ? '#90B5EA' : '#ADD1F2',
+              }}
+            >
+              {lastTwoDayUsageRatio.ratio}% -
+              {secondsToHMS(Math.abs(lastTwoDayUsageRatio.difference))}
+            </span>
           </span>
         </div>
       )}

@@ -51,6 +51,10 @@
   -webkit-text-fill-color: transparent;
 }
 
+.screenTimeChangeRatioText {
+  color: #d7b99f;
+}
+
 .processUsageBarIcon {
   align-self: flex-end;
 }
