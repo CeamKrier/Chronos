@@ -62,6 +62,10 @@ export default function HistoricalAnalysis() {
   const lastTwoDayUsageRatio = useMemo(() => {
     const values = Object.values(data);
 
+    if (values.length < 2) {
+      return;
+    }
+
     const today = values[values.length - 1].screenTime;
     const yesterday = values[values.length - 2].screenTime;
 
@@ -198,59 +202,72 @@ export default function HistoricalAnalysis() {
         </Link>
       </div>
 
-      {currentProcess ? (
-        <div className={CSS.processDetailSection}>
-          <span className={CSS.processDetailTitle}>
-            {`Daily Usages - ${currentProcess}`}
-          </span>
-          <Chart
-            type="bar"
-            height={250}
-            series={[
-              {
-                name: 'Active Usage',
-                data: processUsageData[currentProcess!].sessions.map((val) =>
-                  getFloor(val.usageTime / 60)
-                ),
-              },
-              {
-                name: 'Inactive Usage',
-                data: processUsageData[currentProcess!].sessions.map((val) =>
-                  getFloor(val.idleTime / 60)
-                ),
-              },
-            ]}
-            categories={processUsageData[currentProcess!].sessions.map(
-              (val) => val.date
-            )}
-          />
-        </div>
+      {lastTwoDayUsageRatio ? (
+        <>
+          {currentProcess ? (
+            <div className={CSS.processDetailSection}>
+              <span className={CSS.processDetailTitle}>
+                {`Daily Usages - ${currentProcess}`}
+              </span>
+              <Chart
+                type="bar"
+                height={250}
+                series={[
+                  {
+                    name: 'Active Usage',
+                    data: processUsageData[
+                      currentProcess!
+                    ].sessions.map((val) => getFloor(val.usageTime / 60)),
+                  },
+                  {
+                    name: 'Inactive Usage',
+                    data: processUsageData[
+                      currentProcess!
+                    ].sessions.map((val) => getFloor(val.idleTime / 60)),
+                  },
+                ]}
+                categories={processUsageData[currentProcess!].sessions.map(
+                  (val) => val.date
+                )}
+              />
+            </div>
+          ) : (
+            <div className={CSS.historicOverview}>
+              <span>Daily Screen Time (Avg.)</span>
+              <span className={CSS.totalScreenTimeText}>
+                {secondsToHMS(getFloor(totalUsageTime / 10))}
+              </span>
+              <span className={CSS.screenTimeChangeRatioText}>
+                Daily Change:{' '}
+                <span
+                  style={{
+                    color:
+                      lastTwoDayUsageRatio.state === 'up'
+                        ? '#90B5EA'
+                        : '#ADD1F2',
+                  }}
+                >
+                  {lastTwoDayUsageRatio.ratio}% -
+                  {secondsToHMS(Math.abs(lastTwoDayUsageRatio.difference))}
+                </span>
+              </span>
+            </div>
+          )}
+
+          <div className={CSS.processListHeader}>
+            <span>Most Used Processes - Last 10 Days</span>
+          </div>
+
+          <div className={CSS.processCardWrapper}>
+            {renderMostUsedProcesses}
+          </div>
+        </>
       ) : (
-        <div className={CSS.historicOverview}>
-          <span>Daily Screen Time (Avg.)</span>
-          <span className={CSS.totalScreenTimeText}>
-            {secondsToHMS(getFloor(totalUsageTime / 10))}
-          </span>
-          <span className={CSS.screenTimeChangeRatioText}>
-            Daily Change:{' '}
-            <span
-              style={{
-                color:
-                  lastTwoDayUsageRatio.state === 'up' ? '#90B5EA' : '#ADD1F2',
-              }}
-            >
-              {lastTwoDayUsageRatio.ratio}% -
-              {secondsToHMS(Math.abs(lastTwoDayUsageRatio.difference))}
-            </span>
-          </span>
+        <div className={CSS.noHistoricDataWrapper}>
+          <span className={CSS.noDataTitle}>There is not enough data to calculate historic changes</span>
+          <span className={CSS.noDataSubTitle}>Historic analysis will be available once you have atleast 5 days of session</span>
         </div>
       )}
-
-      <div className={CSS.processListHeader}>
-        <span>Most Used Processes - Last 10 Days</span>
-      </div>
-
-      <div className={CSS.processCardWrapper}>{renderMostUsedProcesses}</div>
     </div>
   );
 }

@@ -146,6 +146,25 @@
   width: 50%;
 }
 
+.noHistoricDataWrapper {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 8em);
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.noDataTitle {
+  font-size: 30px;
+  text-align: center;
+}
+
+.noDataSubTitle {
+  margin: 1em;
+  text-align: center;
+}
+
 .processCardWrapper::-webkit-scrollbar-track {
   background-color: #232c39;
 }
